@@ -1,0 +1,45 @@
+<!--<div class="item">
+    <div class="img_container">
+        <img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" class="img_full" />
+    </div>
+    <div class="description_container">
+        <div ng-repeat="metadata in item.metadata" class="metadata_container">
+            <div class="field">
+                <label for="{{metadata.field}}">{{metadata.field}}</label>
+            </div>
+            <div class="value" id="{{metadata.field}}">
+                {{metadata.value}}
+            </div>
+        </div>
+    </div>
+</div>-->
+    <div class="container">
+
+        <header>
+            <h2>{{item.title}}</h2>
+        </header>
+
+        <a ng-href="{{item.img.src}}" class="image featured"><img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" /></a>
+
+        <table>
+            <tr>
+                <td class="td-left">
+                    <label for="collections">Collecties</label>
+                </td>
+                <td id="collections" class="td-right">
+                    <ul>
+                        <li ng-repeat="collection in item.collections"><a ng-href="#/collection/{{collection.link}}">{{collection.name}}</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-repeat="metadata in item.metadata">
+                <td class="td-left">
+                    <label for="{{metadata.field}}">{{metadata.disp}}</label>
+                </td>
+                <td id="{{metadata.field}}" class="td-right">
+                    {{metadata.value}}
+                </td>
+            </tr>
+        </table>
+
+    </div>

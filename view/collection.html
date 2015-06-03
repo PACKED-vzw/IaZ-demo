@@ -1,0 +1,24 @@
+<!--<div class="collection">
+    <div ng-repeat="record in collection.records">
+        <div class="collection_item">
+            <a ng-href="{{record.item_link}}">
+            <div class="image">
+                <img ng-src="{{record.img_link}}" alt="{{record.title}}" class="thumb" />
+            </div>
+            <div class="title">
+                {{record.title}}
+            </div>
+            </a>
+        </div>
+    </div>
+</div>-->
+<div class="row">
+    <div class="4u" ng-repeat="record in collection.records">
+        <article class="item">
+            <a href="{{record.item_link}}" class="image fit"><img ng-src="{{record.img_link}}" alt="{{record.title}}" /></a>
+            <header>
+                <h3>{{record.title}}</h3>
+            </header>
+        </article>
+    </div>
+</div>

@@ -1,0 +1,325 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Easier Website Template | Home :: w3layouts</title>
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/jquery.min.js"></script>
+		 <!-- Custom Theme files -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+   		 <!-- Custom Theme files -->
+   		 <!---- start-smoth-scrolling---->
+		<script type="text/javascript" src="js/move-top.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+		 <!---- start-smoth-scrolling---->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		</script>
+		<!----webfonts--->
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+		<!---//webfonts--->
+		<!----start-top-nav-script---->
+		<script>
+			$(function() {
+				var pull 		= $('#pull');
+					menu 		= $('nav ul');
+					menuHeight	= menu.height();
+				$(pull).on('click', function(e) {
+					e.preventDefault();
+					menu.slideToggle();
+				});
+				$(window).resize(function(){
+	        		var w = $(window).width();
+	        		if(w > 320 && menu.is(':hidden')) {
+	        			menu.removeAttr('style');
+	        		}
+	    		});
+			});
+		</script>
+		<!----//End-top-nav-script---->
+	</head>
+	<body>
+		<!----- start-header---->
+			<div id="home" class="header">
+					<div class="top-header">
+						<div class="container">
+						<div class="logo">
+							<a href="#">Easier</a>
+						</div>
+						<!----start-top-nav---->
+						 <nav class="top-nav">
+							<ul class="top-nav">
+								<li class="active"><a href="#home" class="scroll">Home </a></li>
+								<li class="page-scroll"><a href="#work" class="scroll">Work</a></li>
+								<li class="page-scroll"><a href="#team" class="scroll">Team</a></li>
+								<li class="contatct-active" class="page-scroll"><a href="#contact" class="scroll">Contact</a></li>
+							</ul>
+							<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
+						</nav>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+			<!----- //End-header---->
+			<!----banner---->
+			<div class="banner text-center">
+				<div class="container">
+					<div class="banner-info">
+						<h1><span>let us make</span> your lives easier</h1>
+						<p>We specialize in crafting awesome ideas for web, mobile and beyond.</p>
+						<label class="page-scroll"><a class="big-btn scroll" href="#work1"><span> </span></a></label>
+					</div>
+				</div>
+			</div>
+			<!--//banner---->
+			<!---work--->
+			<div id="work" class="work">
+				<div id="work1" class="container">
+					<div class="head-one text-center">
+						<h2>featured work</h2>
+						<span> </span>
+						<p>Here you can find some of our latest works, to see the details of these works just click the thumbnails below.</p>
+					</div>
+					<!---works--->
+					<!---images-hover-effects--->
+					<script src="js/jquery.hoverGrid.js"></script>
+					<link rel="stylesheet" type="text/css" href="css/jquery.hoverGrid.css">
+					<script type="text/javascript">
+					    $(document).ready(function() {
+					      $('#whatever').hoverGrid();
+					    });
+					</script>
+					<!---images-hover-effects--->
+					<div class="works">
+							<div id="whatever">
+								<div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w1.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>  
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w2.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w3.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w4.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w5.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w6.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w7.png" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w8.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>    
+							    <div class="col-md-4 work-grid">
+								    <div class="item">
+								        <img  src="images/w9.jpg" title="name" />
+								        <div class="caption" style="display: none;">
+								            <h2>Some Title</h2>
+								            <p>This is a caption to end all captions</p>
+								        </div>
+								    </div>  
+							    </div>  
+							    <div class="clearfix"> </div>               
+							</div>
+					</div>
+					 <div class="clearfix"> </div>   
+					</div>
+				</div>
+					<!---//works--->
+					<!---team--->
+					<div id="team" class="team">
+						<div class="container">
+							<div class="head-one text-center team-head">
+								<h2>Team</h2>
+								<span> </span>
+								<p>We are a hard working group, who's aim is to listen to your problems and to come up with the best solution possible. We follow the lates trends on the web to create custom talierd niche websites.</p>
+							</div>	
+							<!----team-members---->
+							<div class="team-members">
+								<div class="col-md-3">
+									<div class="team-member text-center">
+										<img class="t-pic" src="images/t1.jpg" title="name" />
+										<h3>naME sURNAME</h3>
+										<span>Lead Developer</span>
+										<ul class="t-social unstyled-list list-inline">
+											<li><a class="twitter" href="#"><span> </span></a></li>
+											<li><a class="dribbble" href="#"><span> </span></a></li>
+											<li><a class="in" href="#"><span> </span></a></li>
+											<div class="clearfix"> </div>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="team-member text-center">
+										<img class="t-pic" src="images/t2.jpg" title="name" />
+										<h3>naME sURNAME</h3>
+										<span>Lead Developer</span>
+										<ul class="t-social unstyled-list list-inline">
+											<li><a class="twitter" href="#"><span> </span></a></li>
+											<li><a class="dribbble" href="#"><span> </span></a></li>
+											<li><a class="in" href="#"><span> </span></a></li>
+											<div class="clearfix"> </div>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="team-member text-center">
+										<img class="t-pic" src="images/t3.jpg" title="name" />
+										<h3>naME sURNAME</h3>
+										<span>Lead Developer</span>
+										<ul class="t-social unstyled-list list-inline">
+											<li><a class="twitter" href="#"><span> </span></a></li>
+											<li><a class="dribbble" href="#"><span> </span></a></li>
+											<li><a class="in" href="#"><span> </span></a></li>
+											<div class="clearfix"> </div>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="team-member text-center">
+										<img class="t-pic" src="images/t4.jpg" title="name" />
+										<h3>naME sURNAME</h3>
+										<span>Lead Developer</span>
+										<ul class="t-social unstyled-list list-inline">
+											<li><a class="twitter" href="#"><span> </span></a></li>
+											<li><a class="dribbble" href="#"><span> </span></a></li>
+											<li><a class="in" href="#"><span> </span></a></li>
+											<div class="clearfix"> </div>
+										</ul>
+									</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<!----//team-members---->
+						</div>
+					</div>
+					<!---//team--->
+					<!---Contact--->
+					<div id="contact" class="contact">
+						<div class="container">
+							<div class="head-one text-center">
+								<h2>contact</h2>
+								<span> </span>
+							</div>
+							<div class="contact-grids">
+								<div class="col-md-5 contact-map">
+								<p>Where are we located?</p>
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6492831.879838215!2d-102.04805634196835!3d37.38207314531542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sin!4v1403540089700"></iframe>
+								</div>
+								<div class="col-md-7 contact-form">
+								<p>Want to contact us now? Just drop us a line below.</p>	
+								<form>
+									<textarea>Leave us a message...</textarea>
+									<input type="text" value="Your@mail.com">
+									<input type="submit" value="Send" />
+								</form>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+					<!---//Contact--->
+					<!---footer--->
+					<div class="footer">
+						<div class="container">
+							<div class="footer-left">
+								<p><span>Adress:</span> ipsum dolor sit amet, consectetur adipiscing - elit.</p>
+							</div>
+							<div class="footer-right">
+								<p>Template by <a href="#">W3layouts</a></p>
+								<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+									<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<!---//footer--->
+				</div>
+			</div>
+			
+	</body>
+</html>
+

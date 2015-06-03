@@ -1,0 +1,13 @@
+td {
+    text-align: left;
+    padding: 2px 2px 2px 2px;
+}
+
+td.td-left {
+    font-weight: bold;
+    width: 15%;
+}
+
+td.td-right {
+
+}
