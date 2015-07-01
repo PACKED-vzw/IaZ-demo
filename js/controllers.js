@@ -16,11 +16,6 @@ app.config (['$routeProvider', function ($routeProvider) {
             templateUrl: '/view/item.html'
     }).when ('/collection/:q', {
         controller: 'collectionCtrl',
-        resolve: {
-            collection: function (CollectionLoader) {
-                return CollectionLoader ();
-            }
-        },
         templateUrl: '/view/collection.html'
     }).when ('/yale/:id', {
         controller: 'YaleCtrl',
@@ -52,8 +47,8 @@ app.controller ('viewCtrl', ['$scope', 'item', 'ItemDisplay',
     }
 ]);
 
-app.controller ('collectionCtrl', ['$scope', 'collection', 'CollectionDisplay',
-    function ($scope, collection, CollectionDisplay) {
+app.controller ('collectionCtrl', ['$scope', 'CollectionDisplay', 'Collection', '$route',
+    function ($scope, CollectionDisplay, Collection, $route) {
         $scope.chunk = function (array, cSize) {
             var a = [];
             for (var i = 0; i < array.length; i += cSize) {
@@ -61,14 +56,28 @@ app.controller ('collectionCtrl', ['$scope', 'collection', 'CollectionDisplay',
             }
             return a;
         };
-        console.log ('collection');
-        var collectionDisplay = new CollectionDisplay (collection);
-        console.log (collection);
-        collectionDisplay.getRecords ();
-        collectionDisplay.exportData ();
-        $scope.collection = collectionDisplay.exportCollection;
-        $scope.chunked = $scope.chunk ($scope.collection.records, 4);
-        console.log ($scope.chunked);
+        $scope.collection = Collection.get ({id: $route.current.params.q});
+        $scope.collection.$promise.then (function (data) {
+            var collectionDisplay = new CollectionDisplay (data);
+            collectionDisplay.getRecords ();
+            collectionDisplay.exportData ();
+            $scope.pages = collectionDisplay.exportCollection.paginated;
+            var start_list = $scope.pages.shift(); /* First page */
+            $scope.chunked = $scope.chunk (start_list, 4);
+        });
+        $scope.loadMore = function () {
+            if (!$scope.chunked) {
+                return;
+            }
+            if ($scope.pages.length == 0) {
+                return;
+            }
+            var list = $scope.pages.shift ();
+            list = $scope.chunk (list, 4);
+            for (var i = 0; i < list.length; i++) {
+                $scope.chunked.push (list[i]);
+            }
+        };
     }
 ]);
 
@@ -97,18 +106,16 @@ app.controller ('resultCtrl', ['$scope', 'CollectionDisplay', 'VAMQuery', '$rou
         });
         $scope.loadMore = function () {
             if (!$scope.chunked) {
-                console.log ('no data yet');
                 return;
             }
             if ($scope.pages.length == 0) {
                 return;
             }
-            var list = $scope.pages.shift();
+            var list = $scope.pages.shift ();
             list = $scope.chunk (list, 4);
             for (var i = 0; i < list.length; i++) {
                 $scope.chunked.push (list[i]);
             }
-            console.log ($scope.chunked);
         };
     }
 ]);
