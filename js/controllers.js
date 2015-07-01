@@ -1,5 +1,5 @@
 var app = angular.module ('simpleCollectionView',
-    ['simpleCollectionView.services', 'simpleCollectionView.model', 'ngRoute']);
+    ['simpleCollectionView.services', 'simpleCollectionView.model', 'ngRoute', 'infinite-scroll']);
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -91,11 +91,25 @@ app.controller ('resultCtrl', ['$scope', 'CollectionDisplay', 'VAMQuery', '$rou
             var collectionDisplay = new CollectionDisplay (data);
             collectionDisplay.getRecords ();
             collectionDisplay.exportData ();
-            var partial = collectionDisplay.exportCollection;
-            partial.records.splice (0, 100);
-            $scope.chunked = $scope.chunk (partial.records, 4);
-            console.log ($scope.chunked);
+            $scope.pages = collectionDisplay.exportCollection.paginated;
+            var start_list = $scope.pages.shift(); /* First page */
+            $scope.chunked = $scope.chunk (start_list, 4);
         });
+        $scope.loadMore = function () {
+            if (!$scope.chunked) {
+                console.log ('no data yet');
+                return;
+            }
+            if ($scope.pages.length == 0) {
+                return;
+            }
+            var list = $scope.pages.shift();
+            list = $scope.chunk (list, 4);
+            for (var i = 0; i < list.length; i++) {
+                $scope.chunked.push (list[i]);
+            }
+            console.log ($scope.chunked);
+        };
     }
 ]);
 

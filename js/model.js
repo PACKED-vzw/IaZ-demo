@@ -1,8 +1,10 @@
 var model = angular.module ('simpleCollectionView.model', ['simpleCollectionView.services']);
 
 
-model.factory ('ContinousLoader', function () {
+model.factory ('CLoader', function (VAMQuery) {
+    var CLoader = function () {
 
+    };
 });
 
 
@@ -18,6 +20,7 @@ model.factory ('ItemDisplay', function () {
         this.title = this.getTitle ();
         this.collections = [];
         this.exportItem = {};
+        this.paginated = [];
     };
 
     /*
@@ -193,9 +196,27 @@ model.factory ('CollectionDisplay', function () {
         return title;
     };
 
+    CollectionDisplay.prototype.chunk = function (array, cSize) {
+        var a = [];
+        for (var i = 0; i < array.length; i += cSize) {
+            a.push (array.slice (i, i + cSize));
+        }
+        return a;
+    };
+
+    /*
+    Divide this.records in chunks (pages) of 60 items for continous display
+     */
+    CollectionDisplay.prototype.paginate = function () {
+        var paginated = this.chunk (this.records, 60);
+        this.paginated = paginated;
+        return paginated;
+    };
+
     CollectionDisplay.prototype.exportData = function () {
         this.exportCollection.total_records = this.total_records;
         this.exportCollection.records = this.records;
+        this.exportCollection.paginated = this.paginate ();
     };
 
 

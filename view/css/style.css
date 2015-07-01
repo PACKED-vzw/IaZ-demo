@@ -48,6 +48,10 @@ li.navbar {
 
 
 /* Image display */
+div.infinite-scroll {
+    width: 100%;
+}
+
 section.collection {
     width: 100%;
     clear: both;

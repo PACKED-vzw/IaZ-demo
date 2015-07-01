@@ -25,13 +25,16 @@
 <div ng-hide="chunked" class="loader">
     <img src="view/css/ajax-loader.gif" class="loading" alt="loading" />
 </div>
-<section class="collection container" ng-repeat="colpart in chunked">
-    <article class="collection" ng-repeat="record in colpart">
-        <div class="img">
-            <a href="{{record.item_link}}" class="collection"><img class="collection" ng-src="{{record.img_link}}" alt="{{record.title}}" /></a>
-        </div>
-        <header class="collection">
-            <h3 class="collection">{{record.title}}</h3>
-        </header>
-    </article>
-</section>
+<!-- Infinite scroll div -->
+<div class="infinite-scroll" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+    <section class="collection container" ng-repeat="colpart in chunked track by $index">
+        <article class="collection" ng-repeat="record in colpart track by $index">
+            <div class="img">
+                <a href="{{record.item_link}}" class="collection"><img class="collection" ng-src="{{record.img_link}}" alt="{{record.title}}" /></a>
+            </div>
+            <header class="collection">
+                <h3 class="collection">{{record.title}}</h3>
+            </header>
+        </article>
+    </section>
+</div>
