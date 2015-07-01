@@ -1,5 +1,5 @@
 var app = angular.module ('simpleCollectionView',
-    ['simpleCollectionView.services', 'simpleCollectionView.model', 'ngRoute', 'infinite-scroll']);
+    ['simpleCollectionView.services', 'simpleCollectionView.model', 'simpleCollectionView.lido', 'ngRoute', 'infinite-scroll']);
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -19,12 +19,7 @@ app.config (['$routeProvider', function ($routeProvider) {
         templateUrl: '/view/collection.html'
     }).when ('/yale/:id', {
         controller: 'YaleCtrl',
-        resolve: {
-            YaleObject: function (YaleObjectLoader) {
-                return YaleObjectLoader ();
-            }
-        },
-        templateUrl: '/view/item.html'
+        templateUrl: '/view/yale.html'
     }).when ('/results/:term', {
         controller: 'resultCtrl',
         templateUrl: '/view/collection.html'
@@ -81,9 +76,20 @@ app.controller ('collectionCtrl', ['$scope', 'CollectionDisplay', 'Collection', 
     }
 ]);
 
-app.controller ('YaleCtrl', ['$scope',
-    function ($scope) {
-
+app.controller ('YaleCtrl', ['$scope', 'LIDODisplay', 'YaleObject', '$route',
+    function ($scope, LIDODisplay, YaleObject, $route) {
+        var y = new YaleObject ($route.current.params.id);
+        $scope.i = y.resource.get();
+        $scope.i.$promise.then (function (data) {
+            var lidoDisplay = new LIDODisplay (data);
+            lidoDisplay.parseItem ();
+            lidoDisplay.formatDisplay ();
+            lidoDisplay.exportData ();
+            console.log (lidoDisplay.item);
+            console.log (lidoDisplay.exportItem);
+            $scope.item = lidoDisplay.exportItem;
+            $scope.formatted = $scope.item.metadata.formatted;
+        });
     }]);
 
 app.controller ('resultCtrl', ['$scope', 'CollectionDisplay', 'VAMQuery', '$route',

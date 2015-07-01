@@ -19,22 +19,26 @@ var services = angular.module ('simpleCollectionView.services', ['ngResource']);
 
 services.factory ('Item', ['$resource',
     function ($resource) {
-        var url = 'lazy_api/api.php?url=' + encodeURI ('http://www.vam.ac.uk/api/json/museumobject/:id');
+        var url = 'lazy_api/api.php?url=' + encodeURIComponent ('http://www.vam.ac.uk/api/json/museumobject/:id');
         return $resource (url, {id: '@id'});
     }
 ]);
 
 services.factory ('Collection', ['$resource',
     function ($resource) {
-        var url = 'lazy_api/api.php?url=' + encodeURI ('http://www.vam.ac.uk/api/json/museumobject/search?q=:q&images=1');
+        var url = 'lazy_api/api.php?url=' + encodeURIComponent ('http://www.vam.ac.uk/api/json/museumobject/search?q=:q&images=1');
         return $resource (url, {q: '@q'});
     }
 ]);
 
 services.factory ('YaleObject', ['$resource',
     function ($resource) {
-        var url = 'lido_api/api.php?r=' + encodeURI ('http://collections.britishart.yale.edu/oaicatmuseum/OAIHandler?verb=GetRecord&identifier=:i&metadataPrefix=lido') + '&format=json&remote_format=xml';
-        return $resource (url, {i: '@i'});
+        var YaleObject = function (id) {
+            this.id = id;
+            this.url = 'lido_api/api.php?format=json&remote_format=xml&r=' + encodeURIComponent ('http://collections.britishart.yale.edu/oaicatmuseum/OAIHandler?verb=GetRecord&identifier=' + id + '&metadataPrefix=lido');
+            this.resource = $resource (this.url);
+        };
+        return YaleObject;
     }]
 );
 

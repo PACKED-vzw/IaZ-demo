@@ -1,0 +1,42 @@
+<article class="item">
+    <header class="item">
+        <h2 class="item">{{item.title}}</h2>
+    </header>
+    <div class="item_image">
+        <a ng-href="{{item.img.src}}" class="image"><img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" /></a>
+    </div>
+    <div class="item_table">
+        <table class="metadata">
+            <tr>
+                <td class="left">
+                    <label for="collections">Collecties</label>
+                </td>
+                <td id="collections" class="right">
+                    <ul class="collections">
+                        <li ng-repeat="collection in item.collections"><a ng-href="#/collection/{{collection.link}}">{{collection.name}}</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-repeat="(key, value) in formatted">
+                <td class="left">
+                    <label for="{{key}}">{{key}}</label>
+                </td>
+                <td class="right" id="{{key}}">
+                    <table ng-show="key == 'Events'" ng-repeat="event in value">
+                        <tr ng-repeat="(type, content) in event">
+                            <td class="left">
+                                {{type}}
+                            </td>
+                            <td class="right">
+                                {{content}}
+                            </td>
+                        </tr>
+                    </table>
+                    <span ng-hide="key == 'Events'">
+                        {{value}}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</article>
