@@ -1,13 +1,177 @@
+/* General lay-out */
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Droid Sans", sans-serif;
+}
+
+
+
+/*
+vh = view height (HTML5)
+http://snook.ca/archives/html_and_css/vm-vh-units
+*/
+
+header.main {
+    min-height: 100vh;
+    max-width: 15%;
+/*    background-color: red;*/
+    float: left;
+}
+
+div.main {
+    min-height: 100vh;
+    max-width: 85%;
+    min-width: 85%;
+/*    background-color: blue;*/
+    float:left;
+}
+
+/* Navbar */
+nav {
+}
+
+ul.navbar {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+li.navbar {
+    display: block;
+    padding: 15px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-color: #b5c6bb;
+}
+
+
+/* Image display */
+section.collection {
+    width: 100%;
+    clear: both;
+}
+
+article.collection {
+    width: 23%;
+    float: left;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.img {
+    width: 100%;
+}
+
+img.collection {
+    max-width: 100%;
+    max-height: 30vh;
+}
+
+header.collection {
+    width: auto;
+    height: auto;
+}
+
+h3.collection {
+    font-size: 1em;
+    font-weight: normal;
+    font-variant: small-caps;
+}
+
+article.item {
+    width: 100%;
+    padding: 10px;
+}
+
+header.item {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2.item {
+    font-size: 1.5em;
+    font-variant: small-caps;
+    font-weight: normal;
+}
+
+div.item_image {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.item_table {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+/* Metadata */
+table.metadata {
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    font-size: 0.9em;
+}
+
 td {
-    text-align: left;
-    padding: 2px 2px 2px 2px;
+    padding: 3px;
+    vertical-align: text-top;
 }
 
-td.td-left {
+td.right {
+    text-align: justify;
+    line-height: 1.2em;
+}
+
+ul.collections {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+td.left {
     font-weight: bold;
-    width: 15%;
+    padding-right: 15px;
+    font-size: 1em;
 }
 
-td.td-right {
+a {
+    text-decoration: none;
+    color: #5d6366;
+}
 
+a:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+
+div.loader {
+    width: 15vw;
+    height: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Form */
+div.form {
+    width: auto;
+    height: 15vh;
+    margin-left: 5vw;
+    margin-top: 10vh;
+}
+
+label.form {
+    display: block;
+    font-size: 0.95em;
+    font-variant: small-caps;
+    margin: 5px;
+}
+
+input {
+    display: block;
+    margin: 5px;
 }

@@ -1,4 +1,10 @@
-var model = angular.module ('simpleCollectionView.model', []);
+var model = angular.module ('simpleCollectionView.model', ['simpleCollectionView.services']);
+
+
+model.factory ('ContinousLoader', function () {
+
+});
+
 
 model.factory ('ItemDisplay', function () {
     var ItemDisplay = function (item) {
@@ -157,7 +163,11 @@ model.factory ('CollectionDisplay', function () {
     };
 
     CollectionDisplay.prototype.getIMGLink = function (image_id) {
-        return 'http://media.vam.ac.uk/media/thira/collection_images/' + image_id.substr (0, 6) + '/' + image_id + '.jpg';
+        if (image_id == '') {
+            return 'view/css/Ehem_Baudenkmal.svg.png';
+        } else {
+            return 'http://media.vam.ac.uk/media/thira/collection_images/' + image_id.substr (0, 6) + '/' + image_id + '.jpg';
+        }
     };
 
     CollectionDisplay.prototype.getItemLink = function (object_number) {
@@ -187,6 +197,7 @@ model.factory ('CollectionDisplay', function () {
         this.exportCollection.total_records = this.total_records;
         this.exportCollection.records = this.records;
     };
+
 
     return CollectionDisplay;
 });

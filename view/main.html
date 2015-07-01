@@ -1,0 +1,9 @@
+<div class="form">
+    <form novalidate class="simple-form" ng-hide="search.term">
+        <label class="form" for="searchterm">Search term</label><input type="text" ng-model="so.term" id="searchterm" />
+        <input type="submit" ng-click="go(so)" value="Zoeken" />
+    </form>
+    <div ng-show="search.term">
+        <img src="view/css/ajax-loader.gif" class="loading" alt="loading" />
+    </div>
+</div>

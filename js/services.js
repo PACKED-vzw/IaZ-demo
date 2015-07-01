@@ -1,6 +1,20 @@
 /**
  * Created by pieter on 23/04/15.
  */
+
+/**
+ * Divide an array in arrays of cSize (last array contains the remainder if a.length % cSize != 0)
+ * @param cSize
+ * @returns {Array}
+ */
+Array.prototype.chunk = function (cSize) {
+    var a = [];
+    for (var i = 0; i < this.length; i += cSize) {
+        a.push (this.slice (i, i + cSize));
+    }
+    return a;
+};
+
 var services = angular.module ('simpleCollectionView.services', ['ngResource']);
 
 services.factory ('Item', ['$resource',
@@ -23,6 +37,13 @@ services.factory ('YaleObject', ['$resource',
         return $resource (url, {i: '@i'});
     }]
 );
+
+services.factory ('VAMQuery', ['$resource',
+    function ($resource) {
+        var url = 'lazy_api/api.php?url=' + encodeURI ('http://www.vam.ac.uk/api/json/museumobject/search?q=:q&images=1');
+        return $resource (url, {q: '@q'});
+    }
+]);
 
 services.factory ('YaleObjectLoader', ['YaleObject', '$route', '$q',
     function (YaleObject, $route, $q) {

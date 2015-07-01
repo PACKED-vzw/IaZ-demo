@@ -3,7 +3,7 @@ var app = angular.module ('simpleCollectionView',
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
-        .when ('/', {
+        .when ('/search/:type', {
         controller: 'mainCtrl',
         templateUrl: '/view/main.html'
     }).when ('/item/:id', {
@@ -30,6 +30,9 @@ app.config (['$routeProvider', function ($routeProvider) {
             }
         },
         templateUrl: '/view/item.html'
+    }).when ('/results/:term', {
+        controller: 'resultCtrl',
+        templateUrl: '/view/collection.html'
     })
 }
 ]);
@@ -51,12 +54,21 @@ app.controller ('viewCtrl', ['$scope', 'item', 'ItemDisplay',
 
 app.controller ('collectionCtrl', ['$scope', 'collection', 'CollectionDisplay',
     function ($scope, collection, CollectionDisplay) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
         console.log ('collection');
         var collectionDisplay = new CollectionDisplay (collection);
         console.log (collection);
         collectionDisplay.getRecords ();
-        collectionDisplay.exportData();
+        collectionDisplay.exportData ();
         $scope.collection = collectionDisplay.exportCollection;
+        $scope.chunked = $scope.chunk ($scope.collection.records, 4);
+        console.log ($scope.chunked);
     }
 ]);
 
@@ -65,8 +77,42 @@ app.controller ('YaleCtrl', ['$scope',
 
     }]);
 
-app.controller ('mainCtrl', ['$scope',
-    function ($scope) {
+app.controller ('resultCtrl', ['$scope', 'CollectionDisplay', 'VAMQuery', '$route',
+    function ($scope, CollectionDisplay, VAMQuery, $route) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
+        $scope.collection = VAMQuery.get ({q: $route.current.params.term});
+        $scope.collection.$promise.then (function (data) {
+            var collectionDisplay = new CollectionDisplay (data);
+            collectionDisplay.getRecords ();
+            collectionDisplay.exportData ();
+            var partial = collectionDisplay.exportCollection;
+            partial.records.splice (0, 100);
+            $scope.chunked = $scope.chunk (partial.records, 4);
+            console.log ($scope.chunked);
+        });
+    }
+]);
+
+app.controller ('mainCtrl', ['$scope', '$location',
+    function ($scope, $location) {
         console.log ('main');
+        $scope.search = {
+            term: ''
+        };
+        $scope.go = function (so) {
+            $scope.search = angular.copy (so);
+            window.location.href = '#/results/' + so.term;
+        };
+        $scope.reset = function () {
+            $scope.so = angular.copy ($scope.search);
+        };
+        $scope.reset ();
+        /* Creates search form & if type is va, uses collection view to show the results */
     }
 ]);
