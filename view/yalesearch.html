@@ -1,0 +1,7 @@
+<section class="collection container" ng-repeat="colpart in chunked track by $index">
+    <article class="collection" ng-repeat="record in colpart track by $index">
+        <header class="collection">
+            <h3 class="collection"><a ng-href="#/yale/{{record.id}}">{{record.id}}</a></h3>
+        </header>
+    </article>
+</section>

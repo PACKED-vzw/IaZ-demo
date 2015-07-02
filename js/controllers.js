@@ -3,9 +3,12 @@ var app = angular.module ('simpleCollectionView',
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
-        .when ('/search/:type', {
+        .when ('/search/collection', {
         controller: 'mainCtrl',
         templateUrl: '/view/main.html'
+    }).when ('/search/yale', {
+        controller: 'yaleSearchCtrl',
+        templateUrl: 'view/yalesearch.html'
     }).when ('/item/:id', {
             controller: 'viewCtrl',
             templateUrl: '/view/item.html'
@@ -18,8 +21,38 @@ app.config (['$routeProvider', function ($routeProvider) {
     }).when ('/results/:term', {
         controller: 'resultCtrl',
         templateUrl: '/view/collection.html'
-    })
+    }).when ('/', {
+        templateUrl: 'view/index.html',
+        controller: 'indexCtrl'
+    }).otherwise ({
+        redirectTo: '/'
+    });
 }
+]);
+
+app.controller ('indexCtrl', ['$scope',
+    function ($scope) {
+
+    }
+]);
+
+app.controller ('yaleSearchCtrl', ['$scope',
+    function ($scope) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
+        var list = [];
+        for (var i = 100; i <= 900; i++) {
+            list.push ({
+                id: 'oai:tms.ycba.yale.edu:' + i
+            });
+        }
+        $scope.chunked = $scope.chunk (list, 4);
+    }
 ]);
 
 app.controller ('viewCtrl', ['$scope', 'ItemDisplay', 'Item', '$route',
