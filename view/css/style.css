@@ -28,6 +28,10 @@ div.main {
     float:left;
 }
 
+div.spacer {
+    clear: both;
+}
+
 /* Navbar */
 nav {
 }
@@ -178,4 +182,46 @@ label.form {
 input {
     display: block;
     margin: 5px;
+}
+
+/* Events */
+section.events {
+    font-size: 0.9em;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h3.events {
+    font-size: 1.2em;
+    color: #4F4F4F;
+}
+
+article.event {
+    max-width: 23%;
+    float: left;
+    padding: 0px 15px 15px 15px;
+    margin: 5px;
+    border-radius: 25px;
+    background-color: #f4f4f4;
+    display: block;
+}
+
+label.event_subcard {
+}
+
+div.event_subcard {
+}
+
+table.events {
+    font-size: 0.9em;
+    line-height: 1.2em;
+}
+
+h4.event {
+    font-variant: small-caps;
+}
+
+td.events {
+    text-align: left;
 }

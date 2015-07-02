@@ -14,19 +14,12 @@ lido.factory ('LIDODisplay', function () {
             alt: ''
         };
         this.metadata = {
-            events: [],
             types: [],
             measurements: [],
             repository: [],
-            subjects: [],
-            formatted: {
-                Repository: '',
-                Events: [],
-                Types: [],
-                Measurements: [],
-                Subjects: []
-            }
+            subjects: []
         };
+        this.stringmetadata = [];
         this.title = '';
         this.collections = [];
     };
@@ -50,32 +43,40 @@ lido.factory ('LIDODisplay', function () {
         this.img.alt = this.title;
         this.getCollections ();
         this.getMetadata ();
-        this.formatForDisplay ();
-    };
-
-    LIDODisplay.prototype.formatForDisplay = function () {
-        for (var i = 0; i < this.metadata.events.length; i++) {
-            var event = {
-                Type: this.metadata.events[i].type,
-                Period: this.metadata.events[i].period,
-                Date: this.metadata.events[i].date,
-                Actors: this.formatActorsForDisplay (this.metadata.events[i].actors)
-            };
-            this.metadata.formatted.Events.push (event);
+        /* Add attribute stringroles for display */
+        var events = this.events;
+        for (var i = 0; i < events.length; i++) {
+            for (var j = 0; j < events[i].actors.length; j++) {
+                events[i].actors[j].stringroles = events[i].actors[j].roles.join (', ');
+            }
         }
+        /* Create stringmetadata for ng-repeat of simple (key => value of type string) metadata elements (see template) */
+        var metadata = this.metadata;
+        for (var key in this.metadata) {
+            if (! this.metadata.hasOwnProperty (key)) {
+                continue;
+            }
+            if (typeof (this.metadata[key]) == 'string') {
+                this.stringmetadata.push ({
+                    attr: this.prettyField (key),
+                    val: this.metadata[key]
+                });
+            }
+        }
+        this.events = events;
     };
 
     /**
-     * Format a list of actors for display as "actor (roles), actor (roles)"
-     * @param actors
-     * @returns {string}
+     Function to prettify the metadata.field
+     @param field
+     @return string
      */
-    LIDODisplay.prototype.formatActorsForDisplay = function (actors) {
-        var list = [];
-        for (var i = 0; i < actors.length; i++) {
-            list.push (actors[i].name + ' (' + actors[i].roles.join(', ') + ')');
-        }
-        return list.join (', ');
+    LIDODisplay.prototype.prettyField = function (field) {
+        field = field.replace (/_/g, ' ');
+        var first = field.slice (0, 1);
+        var remain = field.slice (1);
+        field = first.toLocaleUpperCase() + remain;
+        return field;
     };
 
     /*
@@ -133,7 +134,7 @@ lido.factory ('LIDODisplay', function () {
      Use helper functions to delve deep in the object structure of jsonified-lido object
      */
     LIDODisplay.prototype.getMetadata = function () {
-        this.metadata.events = this.getEventMetadata (this.item.metadata.eventWrap.eventSet);
+        this.events = this.getEventMetadata (this.item.metadata.eventWrap.eventSet);
         this.metadata.measurements = this.getMeasurements (this.item.metadata.objectIdentificationWrap.objectMeasurementsWrap.objectMeasurementsSet);
         this.metadata.repository = this.getRepository (this.item.metadata.objectIdentificationWrap.repositoryWrap.repositorySet);
         this.metadata.types = this.getTypes (this.item.metadata.objectClassificationWrap.objectWorkTypeWrap.objectWorkType);
@@ -244,6 +245,7 @@ lido.factory ('LIDODisplay', function () {
         } else {
             var event = {
                 actors: this.getActorsFromList (eventSetPart.event.eventActor),
+                display: this.getDisplayEvent (eventSetPart.displayEvent),
                 date: this.getEventDate (eventSetPart.event.eventDate),
                 type: this.getEventType (eventSetPart.event.eventType),
                 period: this.getEventPeriod (eventSetPart.event.periodName)
@@ -253,6 +255,19 @@ lido.factory ('LIDODisplay', function () {
         return events;
     };
 
+
+    /**
+     * Get the displayEvent
+     * @param displayEventPart
+     * @returns {string}
+     */
+    LIDODisplay.prototype.getDisplayEvent = function (displayEventPart) {
+        if (typeof (displayEventPart) == 'undefined') {
+            return '';
+        } else {
+            return displayEventPart.value;
+        }
+    };
 
     /**
      * Return the period of an event
@@ -365,6 +380,8 @@ lido.factory ('LIDODisplay', function () {
         this.exportItem.img = this.img;
         this.exportItem.title = this.title;
         this.exportItem.collections = this.collections;
+        this.exportItem.events = this.events;
+        this.exportItem.stringmetadata = this.stringmetadata;
     };
     return LIDODisplay;
 });

@@ -19,8 +19,12 @@ var services = angular.module ('simpleCollectionView.services', ['ngResource']);
 
 services.factory ('Item', ['$resource',
     function ($resource) {
-        var url = 'lazy_api/api.php?url=' + encodeURIComponent ('http://www.vam.ac.uk/api/json/museumobject/:id');
-        return $resource (url, {id: '@id'});
+        var LazyItem = function (id) {
+            this.id = id;
+            this.url = 'lazy_api/api.php?url=' + encodeURIComponent ('http://www.vam.ac.uk/api/json/museumobject/' + id);
+            this.resource = $resource (this.url);
+        };
+        return LazyItem;
     }
 ]);
 

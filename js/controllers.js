@@ -8,11 +8,6 @@ app.config (['$routeProvider', function ($routeProvider) {
         templateUrl: '/view/main.html'
     }).when ('/item/:id', {
             controller: 'viewCtrl',
-            resolve: {
-                item: function (ItemLoader) {
-                    return ItemLoader ();
-                }
-            },
             templateUrl: '/view/item.html'
     }).when ('/collection/:q', {
         controller: 'collectionCtrl',
@@ -27,18 +22,19 @@ app.config (['$routeProvider', function ($routeProvider) {
 }
 ]);
 
-app.controller ('viewCtrl', ['$scope', 'item', 'ItemDisplay',
-    function ($scope, item, ItemDisplay) {
-        console.log ('view');
-        item = item[0].fields; /* Returns an array of 1 item, data in fields */
-        console.log (item);
-        var itemDisplay = new ItemDisplay (item);
-        itemDisplay.setIMG ();
-        itemDisplay.setMetadata ();
-        itemDisplay.exportData ();
-        itemDisplay.getCollections ();
-        $scope.item = itemDisplay.exportItem;
-        console.log ($scope.item);
+app.controller ('viewCtrl', ['$scope', 'ItemDisplay', 'Item', '$route',
+    function ($scope, ItemDisplay, Item, $route) {
+        var it = new Item ($route.current.params.id);
+        $scope.it = it.resource.query ();
+        $scope.it.$promise.then (function (data) {
+            var item = data[0].fields;
+            var itemDisplay = new ItemDisplay (item);
+            itemDisplay.setIMG ();
+            itemDisplay.setMetadata ();
+            itemDisplay.exportData ();
+            itemDisplay.getCollections ();
+            $scope.item = itemDisplay.exportItem;
+        });
     }
 ]);
 
@@ -88,7 +84,7 @@ app.controller ('YaleCtrl', ['$scope', 'LIDODisplay', 'YaleObject', '$route',
             console.log (lidoDisplay.item);
             console.log (lidoDisplay.exportItem);
             $scope.item = lidoDisplay.exportItem;
-            $scope.formatted = $scope.item.metadata.formatted;
+            $scope.events = $scope.item.events;
         });
     }]);
 
