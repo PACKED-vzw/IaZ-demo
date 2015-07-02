@@ -1,0 +1,23 @@
+{
+  "name": "simplecollectionview",
+  "version": "1",
+  "authors": [
+    "Pieter De Praetere <pieter@packed.be>"
+  ],
+  "description": "Demo IaZ (PACKED vzw & Zilvermuseum)",
+  "license": "GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ngInfiniteScroll": "~1.2.1",
+    "jquery": "~2.1.4",
+    "angular-route": "~1.4.1",
+    "angular-resource": "~1.4.1",
+    "angular": "~1.4.1"
+  }
+}
