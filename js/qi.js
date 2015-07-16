@@ -55,7 +55,7 @@ model.factory ('QiDisplay', function() {
         var titles = this.QiMetadata.getTitle();
         for (var i = 0; i < titles.length; i++) {
             metadata.push({
-                field: 'Titel',
+                field: titles[i].replace(' ', '_'),
                 disp: 'Titel',
                 value: titles[i]
             });
@@ -64,7 +64,7 @@ model.factory ('QiDisplay', function() {
         var descriptions = this.QiMetadata.getDescription();
         for (i = 0; i < descriptions.length; i++) {
             metadata.push({
-                field: 'Beschrijving',
+                field: descriptions[i].replace(' ', '_'),
                 disp: 'Beschrijving',
                 value: descriptions[i]
             });
@@ -146,7 +146,10 @@ model.factory ('QiDisplay', function() {
     QiDisplay.prototype.getCollections = function () {
         /* QI items only have 1 collection */
         var returnCollections = [];
-        returnCollections.push(this.getValueDirectly(this.item.record.collection_type_value));
+        returnCollections.push({
+            name: this.getValueDirectly(this.item.record.collection_type_value),
+            link: this.getValueDirectly(this.item.record.collection_type_value)
+        });
         return returnCollections;
     };
 

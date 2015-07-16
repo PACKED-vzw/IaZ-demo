@@ -35,6 +35,16 @@ services.factory ('Collection', ['$resource',
     }
 ]);
 
+services.factory ('QiObject', ['$resource',
+    function ($resource) {
+        var QiObject = function (id) {
+            this.id = id;
+            this.url = 'lazy_api/api.php?url=' + encodeURIComponent('https://zilver.qi-cms.com/api/get/object/id/' + id)
+        };
+        return QiObject;
+    }
+]);
+
 services.factory ('YaleObject', ['$resource',
     function ($resource) {
         var YaleObject = function (id) {

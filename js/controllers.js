@@ -21,7 +21,14 @@ app.config (['$routeProvider', function ($routeProvider) {
     }).when ('/results/:term', {
         controller: 'resultCtrl',
         templateUrl: '/view/collection.html'
-    }).when ('/', {
+    }).when('/qi/item/:id', {
+            templateUrl: 'view/qi.html',
+            controller: 'QiCtrl'
+        }
+    ).when('qi/collections/:collection', {
+
+        }
+    ).when ('/', {
         templateUrl: 'view/index.html',
         controller: 'indexCtrl'
     }).otherwise ({
@@ -102,6 +109,18 @@ app.controller ('collectionCtrl', ['$scope', 'CollectionDisplay', 'Collection', 
                 $scope.chunked.push (list[i]);
             }
         };
+    }
+]);
+
+app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
+    function ($scope, QiDisplay, QiObject, $route) {
+        var qi = new QiObject ($route.current.params.id);
+        $scope.qi = qi.resource.get();
+        $scope.qi.$promise.then (function (data) {
+            var QiDisplay = new QiDisplay (data.records[0]);
+            $scope.item = QiDisplay.exportItem;
+            $scope.events = QiDisplay.exportItem.events;
+        });
     }
 ]);
 
