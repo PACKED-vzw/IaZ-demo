@@ -1,0 +1,69 @@
+<article class="item">
+    <header class="item">
+        <h2 class="item">{{item.title}}</h2>
+    </header>
+    <div class="item_image">
+        <a ng-href="{{item.img.src}}" class="image"><img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" /></a>
+    </div>
+    <div class="item_table">
+        <table class="metadata">
+            <tr>
+                <td class="left">
+                    <label for="collections">Collecties</label>
+                </td>
+                <td id="collections" class="right">
+                    <ul class="collections">
+                        <li ng-repeat="collection in item.collections"><a ng-href="#/qi/collections/{{collection.link}}">{{collection.name}}</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-repeat="metadata in item.metadata">
+                <td class="left">
+                    <label for="{{metadata.field}}">{{metadata.disp}}</label>
+                </td>
+                <td class="right" id="{{metadata.field}}">
+                    {{metadata.value}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- Linked events -->
+    <section class="events">
+        <header class="events">
+            <h3 class="events">Events</h3>
+        </header>
+        <article ng-repeat="event in events" class="event">
+            <header class="event">
+                <h4 class="event">{{event.type}}</h4>
+            </header>
+            <table class="events">
+                <tr ng-show="event.display">
+                    <td class="left events"><label for="evenement" class="event">Evenement</label></td>
+                    <td id="evenement" class="right events">
+                        <span>
+                            {{event.display}}
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-show="event.actors.length != 0">
+                    <td class="left events"><label for="actors" class="event">Actoren</label></td>
+                    <td id="actors" class="right events">
+                        <span ng-repeat="actor in event.actors">
+                        {{actor.name}} ({{actor.stringroles}})
+                    </span>
+                    </td>
+                </tr>
+                <tr ng-show="event.period">
+                    <td class="left events"><label for="period" class="event">Periode</label></td>
+                    <td id="period" class="right events">
+                        <span>
+                        {{event.date}} ({{event.period}})
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div class="spacer"></div>
+        </article>
+        <div class="spacer"></div>
+    </section>
+</article>

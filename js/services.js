@@ -39,7 +39,8 @@ services.factory ('QiObject', ['$resource',
     function ($resource) {
         var QiObject = function (id) {
             this.id = id;
-            this.url = 'lazy_api/api.php?url=' + encodeURIComponent('https://zilver.qi-cms.com/api/get/object/id/' + id)
+            this.url = 'lazy_api/api.php?url=' + encodeURIComponent('https://zilver.qi-cms.com/api/get/object/id/' + this.id);
+            this.resource = $resource(this.url);
         };
         return QiObject;
     }

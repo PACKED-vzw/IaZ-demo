@@ -1,5 +1,6 @@
 var app = angular.module ('simpleCollectionView',
-    ['simpleCollectionView.services', 'simpleCollectionView.model', 'simpleCollectionView.lido', 'ngRoute', 'infinite-scroll']);
+    ['simpleCollectionView.services', 'simpleCollectionView.model', 'simpleCollectionView.lido', 'simpleCollectionView.qi',
+        'ngRoute', 'infinite-scroll']);
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
