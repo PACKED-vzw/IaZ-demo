@@ -128,6 +128,8 @@ QiEvents.prototype.productionEvents = function () {
             } else {
                 event.date = String(date_from);
             }
+        } else {
+            event.date = date_from + '-' + date_to;
         }
         /* Type */
         event.type = String(this.getValueDirectly(objectProduction.details.object_production_type_id_name));
