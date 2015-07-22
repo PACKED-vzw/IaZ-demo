@@ -115,12 +115,20 @@ app.controller ('collectionCtrl', ['$scope', 'CollectionDisplay', 'Collection', 
 
 app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
     function ($scope, QiDisplay, QiObject, $route) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
         var qi = new QiObject ($route.current.params.id);
         $scope.qi = qi.resource.get();
         $scope.qi.$promise.then (function (data) {
-            var QiDisplay = new QiDisplay (data.records[0]);
-            $scope.item = QiDisplay.exportItem;
-            $scope.events = QiDisplay.exportItem.events;
+            var qiDisplay = new QiDisplay (data.records[0]);
+            $scope.item = qiDisplay.exportItem;
+            $scope.events = qiDisplay.exportItem.events;
+            $scope.chunked = $scope.chunk($scope.events, 3);
         });
     }
 ]);

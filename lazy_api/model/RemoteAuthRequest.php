@@ -9,23 +9,30 @@
 class RemoteAuthRequest {
 
     private $base_header;
-    private $token;
+    private $token = array();
     private $list;
+    public $username;
+    public $password;
 
     /**
      * Constructor. Creates an authorization header for apiRequest
+     * @param $api_type string QI in
      * @throws Exception
      */
-    function __construct () {
+    function __construct ($api_type) {
         $this->base_header = 'Authorization: %s %s';
-        if (! file_exists ('tokens/list.json')) {
+        if (! file_exists ('tokens/list.php')) {
             throw new Exception ('Error: token list doest not exist!');
         }
-        $list = file_get_contents('tokens/list.json');
+        include_once('tokens/list.php');
+        $list = $tokens;
         $this->list = json_decode($list, true);
         if (json_last_error() != JSON_ERROR_NONE) {
             throw new Exception('Error: decoding JSON produced an error: '.json_last_error_msg());
         }
+        $this->token = $this->get_auth_token($api_type);
+        $this->username = $this->token[0];
+        $this->password = $this->token[1];
     }
 
     /**
@@ -44,18 +51,5 @@ class RemoteAuthRequest {
             $username,
             $password
         );
-    }
-
-    /**
-     * Function to authentication support with curl
-     * @param $api_type: Type of the API (corresponds to a key in list.json)
-     * @param $curl_object: curl object
-     * @return object $curl_object
-     */
-    public function add_basic_header($api_type, $curl_object) {
-        $auth = $this->get_auth_token($api_type);
-        $username = $auth[0];
-        $password = $auth[1];
-        return 'Authorization: Basic '.base64_encode("$username:$password");
     }
 }

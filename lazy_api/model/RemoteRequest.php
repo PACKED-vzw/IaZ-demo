@@ -36,8 +36,7 @@ class RemoteRequest {
     function __construct ($remote_url, $authenticate = false, $remote_type = null, $parse = false) {
         $this->c = curl_init();
         if ($authenticate === true) {
-            $this->auth_request = new RemoteAuthRequest();
-            array_push($this->headers, $this->remote_auth_request($remote_type));
+            $this->auth_request = new RemoteAuthRequest($remote_type);
         }
         array_merge($this->headers, $this->set_headers());
         $this->prepare($remote_url);
@@ -48,16 +47,11 @@ class RemoteRequest {
     }
 
     /**
-     * Function to create a authentication headers for remotes requiring authentication
-     * @throws Exception
-     * @param string $remote_type API name of the remote, corresponds to a key in list.json
-     * @return string $auth_header
+     * Function to add the authentication support in $this->c
      */
-    protected function remote_auth_request ($remote_type) {
-        if ($remote_type === null) {
-            throw new Exception ('Error: no remote_type specified!');
-        }
-        return $this->auth_request->add_basic_header($remote_type, $this->c);
+    protected function remote_auth_request () {
+        curl_setopt($this->c, CURLOPT_USERPWD, sprintf("%s:%s", $this->auth_request->username, $this->auth_request->password));
+        curl_setopt($this->c, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
     }
 
     /**
@@ -84,6 +78,7 @@ class RemoteRequest {
     protected function prepare ($remote_url) {
         $this->remote_url = $remote_url;
         curl_setopt($this->c, CURLOPT_URL, $this->remote_url);
+        print_r($this->remote_url);
         curl_setopt($this->c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->c, CURLOPT_HTTPHEADER, $this->headers);
         //curl_setopt($this->c, CURLOPT_COOKIEJAR, 'tokens/cookies.txt');
@@ -94,6 +89,7 @@ class RemoteRequest {
         //curl_setopt($this->c, CURLINFO_HEADER_OUT, true);
         //curl_setopt($this->c, CURLOPT_VERBOSE, true);
         $this->set_user_agent();
+        $this->remote_auth_request();
     }
 
     /**

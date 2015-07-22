@@ -170,6 +170,7 @@ model.factory ('QiDisplay', function() {
         events = events.concat(this.QiEvents.conservationEvents());
         /* Exhibition */
         events = events.concat(this.QiEvents.exhibitionEvents());
+        console.log(events);
         return events;
     };
 

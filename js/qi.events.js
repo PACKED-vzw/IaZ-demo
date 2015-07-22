@@ -4,6 +4,14 @@
 
 var QiEvents = function (record) {
     this.record = record;
+    /*
+    List of key-value pairs linking actors to events - for the event "vervaardiging", the actor is named "vervaardiger"
+    There is no automatic way of doing this.
+     */
+    this.maker_roles = {
+        'vervaardiging': 'vervaardiger',
+        'ontwerp': 'ontwerper'
+    };
 };
 
 
@@ -125,12 +133,25 @@ QiEvents.prototype.productionEvents = function () {
         event.type = String(this.getValueDirectly(objectProduction.details.object_production_type_id_name));
         /* Period */
         event.period = event.date;
-        if (typeof(objectProduction.details.object_production_type_id_name) == 'undefined' || objectProduction.details.object_production_type_id_name.toLocaleLowerCase() != 'vervaardiging') {
+        /* TODO something */
+        /* Actors */
+        var actors = [];
+        if (typeof(objectProduction.details.object_production_type_id_name) == 'undefined' || typeof(this.maker_roles[objectProduction.details.object_production_type_id_name.toLocaleLowerCase()]) == 'undefined') {
             /* Use the values of the production event */
-            event.actors = [String(this.getValueDirectly(objectProduction.details.actor_id_name))];
+            actors = [{
+                name: String(this.getValueDirectly(objectProduction.details.actor_id_name)),
+                stringroles: objectProduction.details.object_production_type_id_name.toLocaleLowerCase()
+            }];
         } else {
-            event.actors = this.getActorsByType(record.relationship.object_maker, 'Vervaardiger');
+            var t = this.getActorsByType(this.record.relationship.object_maker, this.maker_roles[objectProduction.details.object_production_type_id_name.toLocaleLowerCase()]);
+            for (var j = 0; j < t.length; j++) {
+                actors.push({
+                    name: t[j],
+                    stringroles: objectProduction.details.object_production_type_id_name
+                });
+            }
         }
+        event.actors = actors;
         productionEvents.push(event);
     }
     return productionEvents;
