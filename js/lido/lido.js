@@ -7,6 +7,7 @@ var lido = angular.module ('simpleCollectionView.lido', ['simpleCollectionView.s
 lido.factory ('LIDODisplay', function () {
     var LIDODisplay = function (lido) {
         this.lido = lido;
+        this.lido_events = new LIDOEvents(this.lido);
         this.exportItem = {};
         this.item = {};
         this.img = {
@@ -47,7 +48,7 @@ lido.factory ('LIDODisplay', function () {
         var events = this.events;
         for (var i = 0; i < events.length; i++) {
             for (var j = 0; j < events[i].actors.length; j++) {
-                events[i].actors[j].stringroles = events[i].actors[j].roles.join (', ');
+                events[i].actors[j].stringroles = events[i].actors[j].role;
             }
         }
         /* Create stringmetadata for ng-repeat of simple (key => value of type string) metadata elements (see template) */
@@ -134,7 +135,7 @@ lido.factory ('LIDODisplay', function () {
      Use helper functions to delve deep in the object structure of jsonified-lido object
      */
     LIDODisplay.prototype.getMetadata = function () {
-        this.events = this.getEventMetadata (this.item.metadata.eventWrap.eventSet);
+        this.events = this.lido_events.events;
         this.metadata.measurements = this.getMeasurements (this.item.metadata.objectIdentificationWrap.objectMeasurementsWrap.objectMeasurementsSet);
         this.metadata.repository = this.getRepository (this.item.metadata.objectIdentificationWrap.repositoryWrap.repositorySet);
         this.metadata.types = this.getTypes (this.item.metadata.objectClassificationWrap.objectWorkTypeWrap.objectWorkType);
@@ -231,132 +232,6 @@ lido.factory ('LIDODisplay', function () {
         return subjects;
     };
 
-    /**
-     * Get event metadata
-     * @param eventSetPart
-     * @returns {Array}
-     */
-    LIDODisplay.prototype.getEventMetadata = function (eventSetPart) {
-        var events = [];
-        if (eventSetPart instanceof Array) {
-            for (var i = 0; i < eventSetPart.length; i++) {
-                events = events.concat (this.getEventMetadata (eventSetPart[i]));
-            }
-        } else {
-            var event = {
-                actors: this.getActorsFromList (eventSetPart.event.eventActor),
-                display: this.getDisplayEvent (eventSetPart.displayEvent),
-                date: this.getEventDate (eventSetPart.event.eventDate),
-                type: this.getEventType (eventSetPart.event.eventType),
-                period: this.getEventPeriod (eventSetPart.event.periodName)
-            };
-            events.push (event);
-        }
-        return events;
-    };
-
-
-    /**
-     * Get the displayEvent
-     * @param displayEventPart
-     * @returns {string}
-     */
-    LIDODisplay.prototype.getDisplayEvent = function (displayEventPart) {
-        if (typeof (displayEventPart) == 'undefined') {
-            return '';
-        } else {
-            return displayEventPart.value;
-        }
-    };
-
-    /**
-     * Return the period of an event
-     * @param eventPeriodPart
-     * @returns {string}
-     */
-    LIDODisplay.prototype.getEventPeriod = function (eventPeriodPart) {
-        if (typeof (eventPeriodPart) == 'undefined') {
-            return '';
-        } else {
-            return eventPeriodPart.term.value;
-        }
-    };
-
-    /**
-     * Return the type of an event
-     * @param eventTypePart
-     * @returns {string}
-     */
-    LIDODisplay.prototype.getEventType = function (eventTypePart) {
-        if (typeof (eventTypePart) == 'undefined') {
-            return '';
-        }
-        return eventTypePart.term.value;
-    };
-
-    /**
-     * Get Event date
-     * @param eventDatePart
-     * @returns {string}
-     */
-    LIDODisplay.prototype.getEventDate = function (eventDatePart) {
-        if (typeof (eventDatePart) == 'undefined') {
-            return '';
-        }
-        return eventDatePart.date.latestDate.value;
-    };
-
-    /**
-     * Get actors from the eventActor list
-     * @param eventActorPart
-     * @returns {Array}
-     */
-    LIDODisplay.prototype.getActorsFromList = function (eventActorPart) {
-        var actors = [];
-        if (eventActorPart instanceof Array) {
-            for (var i = 0; i < eventActorPart.length; i++) {
-                actors.concat(this.getActorsFromList(eventActorPart[i]));
-            }
-        } else if (typeof (eventActorPart) == 'undefined') {
-            return actors;
-        } else {
-            var actor = {
-                name: '',
-                roles: []
-            };
-            /* Names */
-            for (var j = 0; j < eventActorPart.actorInRole.actor.nameActorSet.appellationValue.length; j++) {
-                if (eventActorPart.actorInRole.actor.nameActorSet.appellationValue[j].pref == 'preferred') {
-                    actor.name = eventActorPart.actorInRole.actor.nameActorSet.appellationValue[j].value;
-                    break;
-                }
-            }
-            for (var k = 0; k < eventActorPart.actorInRole.roleActor.length; k++) {
-                actor.roles = actor.roles.concat (this.getRoles (eventActorPart.actorInRole.roleActor[k]));
-            }
-            actors.push (actor);
-        }
-        return actors;
-    };
-
-    /**
-     * Get the actor role from a roleActor-list
-     * @param roleActorPart
-     * @returns {Array}
-     */
-    LIDODisplay.prototype.getRoles = function (roleActorPart) {
-        var roles = [];
-        if (roleActorPart instanceof Array) {
-            for (var i = 0; i < roleActorPart.length; i++) {
-                roles = roles.concat (this.getRoles (roleActorPart[i]));
-            }
-        } else if (typeof (roleActorPart) == 'undefined') {
-            return roles;
-        } else {
-            roles.push (roleActorPart.term.value);
-        }
-        return roles;
-    };
 
     LIDODisplay.prototype.chunk = function (array, cSize) {
         var a = [];
