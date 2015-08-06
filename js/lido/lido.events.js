@@ -181,7 +181,7 @@ LIDOEvents.prototype.getActorName = function(eventActor) {
             appellationValue = [appellationValue];
         }
         for (var i = 0; i < appellationValue.length; i++) {
-            var actor_name = nameActorSet.appellationValue[i];
+            var actor_name = appellationValue[i];
             if (actor_name.pref == 'preferred') {
                 name = actor_name.value;
                 break;
