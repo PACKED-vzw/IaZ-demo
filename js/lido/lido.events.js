@@ -18,6 +18,7 @@ var LIDOEvents = function(record) {
         period: timeperiod (e.g. "18th century") of the event
         } (if undefined, the values are null)
      */
+    this.helper = new LIDOHelper();
     this.original_events = this.getEventSet(record);
     this.events = [];
     for (var i = 0; i < this.original_events.length; i++) {
@@ -132,7 +133,7 @@ LIDOEvents.prototype.getActorRole = function(eventActor) {
         for (var i = 0; i < eventActor.actorInRole.roleActor.length; i++) {
             var roleActor = eventActor.actorInRole.roleActor[i];
             if (roleActor.term instanceof Array) {
-                roles.push(this.getPropertyByLang(roleActor.term, 'en'));
+                roles.push(this.helper.getPropertyByLang(roleActor.term, 'en'));
             } else {
                 roles.push(roleActor.term.value);
             }
@@ -140,7 +141,7 @@ LIDOEvents.prototype.getActorRole = function(eventActor) {
         role = roles.join(', ');
     } else {
         if (eventActor.actorInRole.roleActor.term instanceof Array) {
-            role = this.getPropertyByLang(eventActor.actorInRole.roleActor.term, 'en');
+            role = this.helper.getPropertyByLang(eventActor.actorInRole.roleActor.term, 'en');
         } else {
             role = eventActor.actorInRole.roleActor.term.value;
         }
@@ -159,7 +160,7 @@ LIDOEvents.prototype.getActorName = function(eventActor) {
     if (eventActor.hasOwnProperty('displayActorInRole')) {
         /* displayActorInRole is how the provider thinks it should be displayed */
         if (eventActor.displayActorInRole instanceof Array) {
-            name = this.getPropertyByLang(eventActor.displayActorInRole, 'en');
+            name = this.helper.getPropertyByLang(eventActor.displayActorInRole, 'en');
         } else {
             name = eventActor.displayActorInRole.value;
         }
@@ -175,7 +176,11 @@ LIDOEvents.prototype.getActorName = function(eventActor) {
         } else {
             nameActorSet = eventActor.actorInRole.actor.nameActorSet;
         }
-        for (var i = 0; i < nameActorSet.appellationValue.length; i++) {
+        var appellationValue = nameActorSet.appellationValue;
+        if (!appellationValue instanceof Array) {
+            appellationValue = [appellationValue];
+        }
+        for (var i = 0; i < appellationValue.length; i++) {
             var actor_name = nameActorSet.appellationValue[i];
             if (actor_name.pref == 'preferred') {
                 name = actor_name.value;
@@ -200,7 +205,7 @@ LIDOEvents.prototype.getEventDisplay = function(eventPart){
         display_event = this.getEventType(eventPart);
     } else {
         if (eventPart.displayEvent instanceof Array) {
-            display_event = this.getPropertyByLang(eventPart.displayEvent, 'en');
+            display_event = this.helper.getPropertyByLang(eventPart.displayEvent, 'en');
         } else {
             display_event = eventPart.displayEvent.value;
         }
@@ -223,7 +228,7 @@ LIDOEvents.prototype.getEventDate = function(eventPart) {
     }
     if (event.eventDate.hasOwnProperty('displayDate')) {
         if (event.eventDate.displayDate instanceof Array) {
-            event_date = this.getPropertyByLang(event.eventDate.displayDate, 'en');
+            event_date = this.helper.getPropertyByLang(event.eventDate.displayDate, 'en');
         } else {
             event_date = event.eventDate.displayDate.value;
         }
@@ -259,7 +264,7 @@ LIDOEvents.prototype.getEventType = function(eventPart) {
         return type;
     }
     if (event.eventType.term instanceof Array) {
-        type = this.getPropertyByLang(event.eventType.term, 'en');
+        type = this.helper.getPropertyByLang(event.eventType.term, 'en');
     } else {
         type = event.eventType.term.value;
     }
@@ -286,7 +291,7 @@ LIDOEvents.prototype.getEventPeriod = function(eventPart) {
         for (var i = 0; i < event.periodName.length; i++) {
             var eventPeriod = event.periodName[i];
             if (eventPeriod.term instanceof Array) {
-                periods.push(this.getPropertyByLang(eventPeriod.term, 'en'));
+                periods.push(this.helper.getPropertyByLang(eventPeriod.term, 'en'));
             } else {
                 periods.push(eventPeriod.term.value);
             }
@@ -295,7 +300,7 @@ LIDOEvents.prototype.getEventPeriod = function(eventPart) {
         period = periods.join(' - ');
     } else {
         if (event.periodName.term instanceof Array) {
-            period = this.getPropertyByLang(event.periodName.term, 'en');
+            period = this.helper.getPropertyByLang(event.periodName.term, 'en');
         } else {
             period = event.periodName.term.value;
         }
@@ -303,29 +308,3 @@ LIDOEvents.prototype.getEventPeriod = function(eventPart) {
     return period;
 };
 
-/**
- * Get a specific property from a list of properties.
- * The property itself is an object with a .lang tag and a .value tag.
- * If the .lang tag matches lang, value == .value.
- * If value == ''; return first .value regardless of .lang
- * @param propertyArray
- * @param lang
- * @return String
- */
-LIDOEvents.prototype.getPropertyByLang = function(propertyArray, lang) {
-    var value = '';
-    for (var i = 0; i < propertyArray.length; i++) {
-        var property = propertyArray[i];
-        if (property.hasOwnProperty('lang')) {
-            if (property.lang == lang) {
-                value = property.value;
-                break;
-            }
-        }
-    }
-    if (value == '') {
-        /* This means that either property has no .lang-property OR no .lang == lang was found */
-        value = propertyArray[0].value;
-    }
-    return value;
-};
