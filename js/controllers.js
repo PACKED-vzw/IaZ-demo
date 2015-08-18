@@ -139,10 +139,8 @@ app.controller ('YaleCtrl', ['$scope', 'LIDODisplay', 'YaleObject', '$route',
         $scope.i = y.resource.get();
         $scope.i.$promise.then (function (data) {
             var lidoDisplay = new LIDODisplay (data);
-            lidoDisplay.parseItem ();
             lidoDisplay.formatDisplay ();
             lidoDisplay.exportData ();
-            console.log (lidoDisplay.item);
             console.log (lidoDisplay.exportItem);
             $scope.item = lidoDisplay.exportItem;
             $scope.events = $scope.item.events;

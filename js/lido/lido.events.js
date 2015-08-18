@@ -35,6 +35,7 @@ var LIDOEvents = function(record) {
  */
 LIDOEvents.prototype.getEventSet = function(record) {
     var events = [];
+    console.log(record.descriptiveMetadata.eventWrap);
     if (!record.hasOwnProperty('descriptiveMetadata')) {
         /* No descriptive metadata, thus no events */
         return events;
@@ -47,15 +48,10 @@ LIDOEvents.prototype.getEventSet = function(record) {
         /* No eventSet, thus no events */
         return events;
     }
-    var eventSet = record.descriptiveMetadata.eventWrap.eventSet;
-    if (!eventSet.hasOwnProperty('event')) {
-        return events;
-    }
-    if (!eventSet.event instanceof Array || !this.helper.is_array(eventSet.event)) {
-        /* We expect this to be an array, but it isn't. Convert to one. */
-        events.push(eventSet.event);
+    if (!this.helper.is_array(record.descriptiveMetadata.eventWrap.eventSet)) {
+        events.push(record.descriptiveMetadata.eventWrap.eventSet);
     } else {
-        events = eventSet.event;
+        events = record.descriptiveMetadata.eventWrap.eventSet;
     }
     return events;
 };
@@ -66,7 +62,6 @@ LIDOEvents.prototype.getEventSet = function(record) {
  * @return Object
  */
 LIDOEvents.prototype.getSingleEventMetadata = function(eventPart) {
-    console.log(eventPart);
     var actors = this.getEventActors(eventPart);
     var display = this.getEventDisplay(eventPart);
     var date = this.getEventDate(eventPart);

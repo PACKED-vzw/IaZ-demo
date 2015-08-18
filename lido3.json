@@ -1,0 +1,904 @@
+{
+  "lidoRecID": {
+    "value": "YCBA\/lido-TMS-900",
+    "source": "Yale Center for British Art",
+    "type": "local"
+  },
+  "category": {
+    "conceptID": {
+      "value": "http:\/\/www.cidoc-crm.org\/crm-concepts\/#E22",
+      "type": "URI"
+    },
+    "term": {
+      "value": "Man-Made Object"
+    }
+  },
+  "descriptiveMetadata": {
+    "objectClassificationWrap": {
+      "objectWorkTypeWrap": {
+        "objectWorkType": [
+          {
+            "conceptID": {
+              "value": "300033618",
+              "source": "AAT",
+              "type": "Object name"
+            },
+            "term": {
+              "value": "painting"
+            }
+          },
+          {
+            "conceptID": {
+              "value": "300015636",
+              "source": "AAT",
+              "type": "Genre"
+            },
+            "term": {
+              "value": "landscape"
+            }
+          }
+        ]
+      },
+      "classificationWrap": {
+        "classification": {
+          "conceptID": {
+            "value": "300033618",
+            "source": "AAT",
+            "type": "Classification"
+          },
+          "term": {
+            "value": "Painting"
+          }
+        }
+      }
+    },
+    "objectIdentificationWrap": {
+      "titleWrap": {
+        "titleSet": {
+          "type": "Repository title",
+          "appellationValue": {
+            "value": "Mount Athos and the Monastery of Stavronik\u00e9tes",
+            "pref": "preferred"
+          }
+        }
+      },
+      "inscriptionsWrap": {
+        "inscriptions": [
+          {
+            "type": "Inscription",
+            "inscriptionTranscription": []
+          },
+          {
+            "type": "Marks",
+            "inscriptionTranscription": []
+          },
+          {
+            "type": "Lettering",
+            "inscriptionTranscription": []
+          },
+          {
+            "type": "signed and dated",
+            "inscriptionTranscription": {
+              "value": "Signed in monogram in lower left: \"EL\""
+            }
+          }
+        ]
+      },
+      "repositoryWrap": {
+        "repositorySet": {
+          "type": "current",
+          "repositoryName": {
+            "legalBodyID": {
+              "value": "500303557",
+              "source": "ULAN",
+              "type": "local"
+            },
+            "legalBodyName": {
+              "appellationValue": {
+                "value": "Yale Center for British Art"
+              }
+            },
+            "legalBodyWeblink": {
+              "value": "http:\/\/britishart.yale.edu"
+            }
+          },
+          "workID": {
+            "value": "B1981.25.415",
+            "type": "inventory number"
+          },
+          "repositoryLocation": {
+            "partOfPlace": [
+              {
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "label": "UnitPosition"
+                  }
+                },
+                "gml": []
+              },
+              {
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "label": "UnitNumber"
+                  }
+                },
+                "gml": []
+              },
+              {
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "value": "Bay C",
+                    "label": "UnitType"
+                  }
+                },
+                "gml": []
+              },
+              {
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "value": "408",
+                    "label": "SubSite"
+                  }
+                },
+                "gml": []
+              },
+              {
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "value": "Yale Center for British Art",
+                    "label": "Site"
+                  }
+                },
+                "gml": []
+              },
+              {
+                "placeID": {
+                  "value": "7",
+                  "source": "TGN",
+                  "type": "Geo location"
+                },
+                "namePlaceSet": {
+                  "appellationValue": {
+                    "value": "New Haven"
+                  }
+                },
+                "gml": []
+              }
+            ]
+          }
+        }
+      },
+      "displayStateEditionWrap": [],
+      "objectMeasurementsWrap": {
+        "objectMeasurementsSet": {
+          "displayObjectMeasurements": {
+            "value": "13 1\/2 x 21 1\/2 inches (34.3 x 54.6 cm)"
+          },
+          "objectMeasurements": {
+            "measurementsSet": [
+              {
+                "measurementType": {
+                  "value": "height"
+                },
+                "measurementUnit": {
+                  "value": "cm"
+                },
+                "measurementValue": {
+                  "value": "34.3"
+                }
+              },
+              {
+                "measurementType": {
+                  "value": "width"
+                },
+                "measurementUnit": {
+                  "value": "cm"
+                },
+                "measurementValue": {
+                  "value": "54.6"
+                }
+              }
+            ],
+            "extentMeasurements": {
+              "value": "Support (PTG)"
+            },
+            "qualifierMeasurements": []
+          }
+        }
+      }
+    },
+    "eventWrap": {
+      "eventSet": [
+        {
+          "event": {
+            "eventID": {
+              "value": "900",
+              "type": "TMS"
+            },
+            "eventType": {
+              "conceptID": {
+                "value": "300054713",
+                "source": "AAT",
+                "type": "local"
+              },
+              "term": {
+                "value": "production"
+              }
+            },
+            "eventActor": {
+              "displayActorInRole": {
+                "value": "Edward Lear, 1812\u20131888, British"
+              },
+              "actorInRole": {
+                "actor": {
+                  "type": "person",
+                  "actorID": {
+                    "value": "8",
+                    "source": "YCBA",
+                    "type": "local"
+                  },
+                  "nameActorSet": {
+                    "appellationValue": {
+                      "value": "Edward Lear",
+                      "pref": "preferred"
+                    }
+                  },
+                  "nationalityActor": {
+                    "term": {
+                      "value": "British"
+                    }
+                  },
+                  "vitalDatesActor": {
+                    "earliestDate": {
+                      "value": "1812",
+                      "type": "estimatedDate"
+                    },
+                    "latestDate": {
+                      "value": "1888",
+                      "type": "estimatedDate"
+                    }
+                  },
+                  "genderActor": {
+                    "value": "male"
+                  }
+                },
+                "roleActor": {
+                  "conceptID": {
+                    "value": "300025103",
+                    "source": "AAT",
+                    "type": "Object related role"
+                  },
+                  "term": {
+                    "value": "Artist"
+                  }
+                },
+                "attributionQualifierActor": []
+              }
+            },
+            "eventDate": {
+              "displayDate": {
+                "value": "1857"
+              },
+              "date": {
+                "earliestDate": {
+                  "value": "1857"
+                },
+                "latestDate": {
+                  "value": "1857"
+                }
+              }
+            },
+            "periodName": {
+              "conceptID": {
+                "value": "24",
+                "type": "local",
+                "source": "YCBA"
+              },
+              "term": {
+                "value": "19th century"
+              }
+            },
+            "eventPlace": [
+              {
+                "type": "Birth place",
+                "displayPlace": {
+                  "value": "London"
+                },
+                "place": {
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "London"
+                    }
+                  },
+                  "gml": [],
+                  "placeClassification": {
+                    "conceptID": {
+                      "value": "7",
+                      "source": "TGN",
+                      "type": "Birth place"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "Death place",
+                "displayPlace": {
+                  "value": "San Remo"
+                },
+                "place": {
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "San Remo"
+                    }
+                  },
+                  "gml": [],
+                  "placeClassification": {
+                    "conceptID": {
+                      "value": "7",
+                      "source": "TGN",
+                      "type": "Death place"
+                    }
+                  }
+                }
+              }
+            ],
+            "eventMaterialsTech": {
+              "displayMaterialsTech": {
+                "value": "Oil on canvas"
+              },
+              "materialsTech": {
+                "termMaterialsTech": [
+                  {
+                    "conceptID": {
+                      "value": "1",
+                      "type": "medium",
+                      "source": "AAT"
+                    },
+                    "term": {
+                      "value": "oil paint"
+                    }
+                  },
+                  {
+                    "conceptID": {
+                      "value": "1",
+                      "type": "support",
+                      "source": "AAT"
+                    },
+                    "term": {
+                      "value": "canvas"
+                    }
+                  },
+                  {
+                    "conceptID": {
+                      "value": "1",
+                      "type": "support",
+                      "source": "AAT"
+                    },
+                    "term": {
+                      "value": "canvas"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "displayEvent": {
+            "value": "Orientalism in Western Art from Delacroix to Matisse, December 2nd, 1999-April, 2000"
+          },
+          "event": {
+            "eventID": {
+              "value": "46",
+              "type": "TMS"
+            },
+            "eventType": {
+              "conceptID": {
+                "value": "300054766",
+                "source": "AAT",
+                "type": "local"
+              },
+              "term": {
+                "value": "exhibition history"
+              }
+            }
+          }
+        },
+        {
+          "displayEvent": {
+            "value": "Edward Lear (Royal Academy), 1985"
+          },
+          "event": {
+            "eventID": {
+              "value": "367",
+              "type": "TMS"
+            },
+            "eventType": {
+              "conceptID": {
+                "value": "300054766",
+                "source": "AAT",
+                "type": "local"
+              },
+              "term": {
+                "value": "exhibition history"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objectRelationWrap": {
+      "subjectWrap": {
+        "subjectSet": {
+          "subject": {
+            "type": "description",
+            "subjectConcept": [
+              {
+                "conceptID": {
+                  "value": "6891",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "castle"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "8749",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "cliffs"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "25928",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "men"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "15636",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "landscape"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "132410",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "trees"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "132316",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "bay (body of water)"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "221444",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "walking-sticks"
+                }
+              },
+              {
+                "conceptID": {
+                  "value": "8795",
+                  "source": "AAT",
+                  "type": "subjectConcept"
+                },
+                "term": {
+                  "value": "mountain"
+                }
+              }
+            ],
+            "subjectPlace": [
+              {
+                "displayPlace": {
+                  "value": "Mount Athos"
+                },
+                "place": {
+                  "geographicalEntity": "geographic location",
+                  "placeID": {
+                    "value": "7002722",
+                    "source": "TGN",
+                    "type": "subjectPlace"
+                  },
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "Mount Athos"
+                    }
+                  },
+                  "gml": []
+                }
+              },
+              {
+                "displayPlace": {
+                  "value": "\u00c1thos"
+                },
+                "place": {
+                  "geographicalEntity": "geographic location",
+                  "placeID": {
+                    "value": "7002722",
+                    "source": "TGN",
+                    "type": "subjectPlace"
+                  },
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "\u00c1thos"
+                    }
+                  },
+                  "gml": []
+                }
+              },
+              {
+                "displayPlace": {
+                  "value": "Greece"
+                },
+                "place": {
+                  "geographicalEntity": "geographic location",
+                  "placeID": {
+                    "value": "1000074",
+                    "source": "TGN",
+                    "type": "subjectPlace"
+                  },
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "Greece"
+                    }
+                  },
+                  "gml": []
+                }
+              },
+              {
+                "displayPlace": {
+                  "value": "Macedonia"
+                },
+                "place": {
+                  "geographicalEntity": "geographic location",
+                  "placeID": {
+                    "value": "7002715",
+                    "source": "TGN",
+                    "type": "subjectPlace"
+                  },
+                  "namePlaceSet": {
+                    "appellationValue": {
+                      "value": "Macedonia"
+                    }
+                  },
+                  "gml": []
+                }
+              }
+            ]
+          }
+        }
+      },
+      "relatedWorksWrap": {
+        "relatedWorkSet": [
+          {
+            "relatedWork": {
+              "displayObject": {
+                "value": "Scott Wilcox, \/Edward Lear and the art of travel, \/Yale Center for British Art, New Haven, CT, 2000, p. 73, no. 48, NJ18 L455 W55 2000 (YCBA)"
+              },
+              "object": {
+                "objectWebResource": [],
+                "objectID": [
+                  {
+                    "value": "NJ18 L455 W55 2000 (YCBA)",
+                    "type": "local",
+                    "source": "LC Call Number"
+                  },
+                  {
+                    "value": "505",
+                    "type": "local",
+                    "source": "YCBA"
+                  }
+                ],
+                "objectNote": {
+                  "value": "Scott Wilcox, Edward Lear and the art of travel, Yale Center for British Art, New Haven, CT, 2000, p. 73, no. 48, NJ18 L455 W55 2000 (YCBA)"
+                }
+              }
+            },
+            "relatedWorkRelType": {
+              "conceptID": {
+                "type": "local",
+                "source": "publication"
+              },
+              "term": {
+                "value": "related to"
+              }
+            }
+          },
+          {
+            "relatedWork": {
+              "displayObject": {
+                "value": "Richard Stoneman, \/A luminous land, artists discover Greece, \/The J. Paul Getty Museum, Los Angeles, CA, 1998, pp. 115, 136-137, no. 85, N8214.5 G8 S76 1988 + (YCBA)"
+              },
+              "object": {
+                "objectWebResource": [],
+                "objectID": [
+                  {
+                    "value": "N8214.5 G8 S76 1988 + (YCBA)",
+                    "type": "local",
+                    "source": "LC Call Number"
+                  },
+                  {
+                    "value": "508",
+                    "type": "local",
+                    "source": "YCBA"
+                  }
+                ],
+                "objectNote": {
+                  "value": "Richard Stoneman, A luminous land, artists discover Greece, The J. Paul Getty Museum, Los Angeles, CA, 1998, pp. 115, 136-137, no. 85, N8214.5 G8 S76 1988 + (YCBA)"
+                }
+              }
+            },
+            "relatedWorkRelType": {
+              "conceptID": {
+                "type": "local",
+                "source": "publication"
+              },
+              "term": {
+                "value": "related to"
+              }
+            }
+          },
+          {
+            "relatedWork": {
+              "displayObject": {
+                "value": "Richard Stoneman, \/A Literary companion to travel in Greece, \/The J. Paul Getty Museum, Malibu, CA, 1994, p. 222, DF720.5 L56 1994 (YCBA)"
+              },
+              "object": {
+                "objectWebResource": [],
+                "objectID": [
+                  {
+                    "value": "DF720.5 L56 1994 (YCBA)",
+                    "type": "local",
+                    "source": "LC Call Number"
+                  },
+                  {
+                    "value": "509",
+                    "type": "local",
+                    "source": "YCBA"
+                  }
+                ],
+                "objectNote": {
+                  "value": "Richard Stoneman, A Literary companion to travel in Greece, The J. Paul Getty Museum, Malibu, CA, 1994, p. 222, DF720.5 L56 1994 (YCBA)"
+                }
+              }
+            },
+            "relatedWorkRelType": {
+              "conceptID": {
+                "type": "local",
+                "source": "publication"
+              },
+              "term": {
+                "value": "related to"
+              }
+            }
+          },
+          {
+            "relatedWork": {
+              "displayObject": {
+                "value": "Vivien Noakes, \/Edward Lear, 1812-1888, \/Royal Academy of Arts, London, 1985, pp. 147-8, no. 53, NJ18 L455 N64 (YCBA)"
+              },
+              "object": {
+                "objectWebResource": [],
+                "objectID": [
+                  {
+                    "value": "NJ18 L455 N64 (YCBA)",
+                    "type": "local",
+                    "source": "LC Call Number"
+                  },
+                  {
+                    "value": "510",
+                    "type": "local",
+                    "source": "YCBA"
+                  }
+                ],
+                "objectNote": {
+                  "value": "Vivien Noakes, Edward Lear, 1812-1888, Royal Academy of Arts, London, 1985, pp. 147-8, no. 53, NJ18 L455 N64 (YCBA)"
+                }
+              }
+            },
+            "relatedWorkRelType": {
+              "conceptID": {
+                "type": "local",
+                "source": "publication"
+              },
+              "term": {
+                "value": "related to"
+              }
+            }
+          },
+          {
+            "relatedWork": {
+              "displayObject": {
+                "value": "Edward Lear, \/Letters of Edward Lear, author of \"The book of nonsense\", to Chichester Fortescue, Lord Carlingford, and Frances Countess Waldegrave, \/T. Fisher Unwin, London, 1907, pp. 65, 77, 315, J18 L477 907 (SML)"
+              },
+              "object": {
+                "objectWebResource": [],
+                "objectID": [
+                  {
+                    "value": "J18 L477 907 (SML)",
+                    "type": "local",
+                    "source": "LC Call Number"
+                  },
+                  {
+                    "value": "511",
+                    "type": "local",
+                    "source": "YCBA"
+                  }
+                ],
+                "objectNote": {
+                  "value": "Edward Lear, Letters of Edward Lear, author of \"The book of nonsense\", to Chichester Fortescue, Lord Carlingford, and Frances Countess Waldegrave, T. Fisher Unwin, London, 1907, pp. 65, 77, 315, J18 L477 907 (SML)"
+                }
+              }
+            },
+            "relatedWorkRelType": {
+              "conceptID": {
+                "type": "local",
+                "source": "publication"
+              },
+              "term": {
+                "value": "related to"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "administrativeMetadata": {
+    "rightsWorkWrap": {
+      "rightsWorkSet": {
+        "rightsType": {
+          "conceptID": {
+            "value": "public domain",
+            "source": "YCBA",
+            "type": "object copyright"
+          },
+          "term": []
+        },
+        "rightsHolder": {
+          "legalBodyName": {
+            "appellationValue": {
+              "value": "Public Domain"
+            }
+          },
+          "legalBodyWeblink": []
+        },
+        "creditLine": {
+          "value": "Yale Center for British Art, Paul Mellon Collection"
+        }
+      }
+    },
+    "recordWrap": {
+      "recordID": {
+        "value": "900",
+        "type": "local"
+      },
+      "recordType": {
+        "conceptID": {
+          "value": "300133025",
+          "source": "AAT",
+          "type": "local"
+        },
+        "term": {
+          "value": "Item"
+        }
+      },
+      "recordSource": {
+        "legalBodyID": {
+          "value": "Yale Center for British Art",
+          "type": "local"
+        },
+        "legalBodyName": {
+          "appellationValue": {
+            "value": "Yale Center for British Art"
+          }
+        },
+        "legalBodyWeblink": {
+          "value": "http:\/\/britishart.yale.edu"
+        }
+      },
+      "recordInfoSet": [
+        {
+          "recordInfoLink": {
+            "value": "http:\/\/collections.britishart.yale.edu\/vufind\/Record\/1671510",
+            "formatResource": "html"
+          }
+        },
+        {
+          "recordInfoID": {
+            "value": "oai:tms.ycba.yale.edu:900",
+            "type": "URL",
+            "source": "YCBA"
+          }
+        }
+      ]
+    },
+    "resourceWrap": {
+      "resourceSet": {
+        "resourceRepresentation": [
+          {
+            "type": "thumb",
+            "linkResource": {
+              "value": "http:\/\/deliver.odai.yale.edu\/content\/repository\/YCBA\/object\/900\/type\/2\/format\/1",
+              "formatResource": "jpg"
+            }
+          },
+          {
+            "type": "large",
+            "linkResource": {
+              "value": "http:\/\/deliver.odai.yale.edu\/content\/repository\/YCBA\/object\/900\/type\/2\/format\/3",
+              "formatResource": "jpg"
+            }
+          },
+          {
+            "type": "list",
+            "linkResource": {
+              "value": "http:\/\/deliver.odai.yale.edu\/info\/repository\/YCBA\/object\/900\/type\/2?output=jsonp&callback=?",
+              "formatResource": "json"
+            }
+          },
+          {
+            "type": "original",
+            "linkResource": {
+              "value": "http:\/\/deliver.odai.yale.edu\/content\/repository\/YCBA\/object\/900\/type\/2\/format\/6",
+              "formatResource": "tif"
+            }
+          }
+        ],
+        "resourceType": {
+          "term": {
+            "value": "digital image"
+          }
+        },
+        "resourceSource": {
+          "type": "holder of image",
+          "legalBodyName": {
+            "appellationValue": {
+              "value": "Yale Center for British Art"
+            }
+          }
+        },
+        "rightsResource": {
+          "rightsHolder": {
+            "legalBodyID": {
+              "value": "http:\/\/hdl.handle.net\/10079\/w6m90dq",
+              "type": "URL"
+            },
+            "legalBodyName": {
+              "appellationValue": {
+                "value": "Yale Center for British Art"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
