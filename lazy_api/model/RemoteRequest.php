@@ -78,7 +78,6 @@ class RemoteRequest {
     protected function prepare ($remote_url) {
         $this->remote_url = $remote_url;
         curl_setopt($this->c, CURLOPT_URL, $this->remote_url);
-        print_r($this->remote_url);
         curl_setopt($this->c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->c, CURLOPT_HTTPHEADER, $this->headers);
         //curl_setopt($this->c, CURLOPT_COOKIEJAR, 'tokens/cookies.txt');
