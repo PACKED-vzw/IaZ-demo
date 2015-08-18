@@ -42,5 +42,9 @@ LIDOHelper.prototype.getPropertyByLang = function(propertyArray, lang) {
  * @returns {boolean}
  */
 LIDOHelper.prototype.is_array = function(o) {
-    return Object.prototype.toString.call(o) == '[object Array]';
+    if (o instanceof Array) {
+        return true;
+    } else {
+        return Object.prototype.toString.call(o) == '[object Array]';
+    }
 };
