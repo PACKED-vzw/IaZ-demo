@@ -34,3 +34,13 @@ LIDOHelper.prototype.getPropertyByLang = function(propertyArray, lang) {
     }
     return value;
 };
+
+/**
+ * Check whether the object o is an array
+ * From http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/
+ * @param o
+ * @returns {boolean}
+ */
+LIDOHelper.prototype.is_array = function(o) {
+    return Object.prototype.toString.call(o) == '[object Array]';
+};

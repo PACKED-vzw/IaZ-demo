@@ -255,7 +255,7 @@ lido.factory ('LIDODisplay', function () {
         this.exportItem.img = this.img;
         this.exportItem.title = this.title;
         this.exportItem.collections = this.collections;
-        this.exportItem.events = this.events;
+        this.exportItem.events = this.lido_events.events;
         this.exportItem.stringmetadata = this.stringmetadata;
     };
     return LIDODisplay;

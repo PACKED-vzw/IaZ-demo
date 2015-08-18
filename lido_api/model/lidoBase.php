@@ -48,6 +48,9 @@ class lidoBase {
          */
         $r = array ();
         $c = $node->childNodes;
+        if (!is_object($c)) {
+            return $r;
+        }
         for ($i = 0; $i < $c->length; $i++) {
             $childNode = $c->item ($i);
             if ($this->check_namespace ($childNode) == true) {

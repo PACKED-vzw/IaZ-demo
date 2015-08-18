@@ -47,7 +47,16 @@ LIDOEvents.prototype.getEventSet = function(record) {
         /* No eventSet, thus no events */
         return events;
     }
-    events = record.descriptiveMetadata.eventWrap.eventSet;
+    var eventSet = record.descriptiveMetadata.eventWrap.eventSet;
+    if (!eventSet.hasOwnProperty('event')) {
+        return events;
+    }
+    if (!eventSet.event instanceof Array || !this.helper.is_array(eventSet.event)) {
+        /* We expect this to be an array, but it isn't. Convert to one. */
+        events.push(eventSet.event);
+    } else {
+        events = eventSet.event;
+    }
     return events;
 };
 
@@ -57,6 +66,7 @@ LIDOEvents.prototype.getEventSet = function(record) {
  * @return Object
  */
 LIDOEvents.prototype.getSingleEventMetadata = function(eventPart) {
+    console.log(eventPart);
     var actors = this.getEventActors(eventPart);
     var display = this.getEventDisplay(eventPart);
     var date = this.getEventDate(eventPart);
@@ -80,7 +90,7 @@ LIDOEvents.prototype.getSingleEventMetadata = function(eventPart) {
  * @return Array
  */
 LIDOEvents.prototype.getEventActors = function(eventPart){
-    var event = eventPart.event;
+    var event = eventPart;
     var actors = [];
     if (!event.hasOwnProperty('eventActor')) {
         /* No actors */
@@ -220,7 +230,7 @@ LIDOEvents.prototype.getEventDisplay = function(eventPart){
  * @return String
  */
 LIDOEvents.prototype.getEventDate = function(eventPart) {
-    var event = eventPart.event;
+    var event = eventPart;
     var event_date = '';
     if (!event.hasOwnProperty('eventDate')) {
         /* Has no date */
@@ -257,7 +267,7 @@ LIDOEvents.prototype.getEventDate = function(eventPart) {
  * @return String
  */
 LIDOEvents.prototype.getEventType = function(eventPart) {
-    var event = eventPart.event;
+    var event = eventPart;
     var type = '';
     if (!event.hasOwnProperty('eventType')) {
         /* No type */
@@ -281,7 +291,7 @@ LIDOEvents.prototype.getEventType = function(eventPart) {
  */
 LIDOEvents.prototype.getEventPeriod = function(eventPart) {
     var period = '';
-    var event = eventPart.event;
+    var event = eventPart;
     var periods = [];
     if (!event.hasOwnProperty('periodName')) {
         /* No period name */

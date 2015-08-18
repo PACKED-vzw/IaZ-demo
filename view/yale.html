@@ -33,7 +33,7 @@
                 </td>
                 <td class="right" id="types">
                     <ul class="subjects">
-                        <li ng-repeat="type in item.metadata.types" class="subjects"><a ng-href="#/search/yale/{{type}}" name="{{type}}">{{type}}</a></li>
+                        <li ng-repeat="type in item.metadata.types track by $index" class="subjects"><a ng-href="#/search/yale/{{type}}" name="{{type}}">{{type}}</a></li>
                     </ul>
                 </td>
             </tr>
@@ -53,7 +53,7 @@
                 </td>
                 <td class="right" id="subjects">
                     <ul class="subjects">
-                        <li ng-repeat="subject in item.metadata.subjects" class="subjects"><a ng-href="#/search/yale/{{subject}}" name="{{subject}}">{{subject}}</a></li>
+                        <li ng-repeat="subject in item.metadata.subjects track by $index" class="subjects"><a ng-href="#/search/yale/{{subject}}" name="{{subject}}">{{subject}}</a></li>
                     </ul>
                 </td>
             </tr>
