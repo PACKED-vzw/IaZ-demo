@@ -85,7 +85,7 @@ LIDOEvents.prototype.getSingleEventMetadata = function(eventPart) {
  * @return Array
  */
 LIDOEvents.prototype.getEventActors = function(eventPart){
-    var event = eventPart;
+    var event = eventPart.event;
     var actors = [];
     if (!event.hasOwnProperty('eventActor')) {
         /* No actors */
@@ -133,11 +133,11 @@ LIDOEvents.prototype.getActorRole = function(eventActor) {
         /* No role */
         return role;
     }
-    if (eventActor.actorInRole.roleActor instanceof Array) {
+    if (this.helper.is_array(eventActor.actorInRole.roleActor)) {
         var roles = [];
         for (var i = 0; i < eventActor.actorInRole.roleActor.length; i++) {
             var roleActor = eventActor.actorInRole.roleActor[i];
-            if (roleActor.term instanceof Array) {
+            if (this.helper.is_array(roleActor.term)) {
                 roles.push(this.helper.getPropertyByLang(roleActor.term, 'en'));
             } else {
                 roles.push(roleActor.term.value);
@@ -145,7 +145,7 @@ LIDOEvents.prototype.getActorRole = function(eventActor) {
         }
         role = roles.join(', ');
     } else {
-        if (eventActor.actorInRole.roleActor.term instanceof Array) {
+        if (this.helper.is_array(eventActor.actorInRole.roleActor.term)) {
             role = this.helper.getPropertyByLang(eventActor.actorInRole.roleActor.term, 'en');
         } else {
             role = eventActor.actorInRole.roleActor.term.value;
@@ -225,7 +225,7 @@ LIDOEvents.prototype.getEventDisplay = function(eventPart){
  * @return String
  */
 LIDOEvents.prototype.getEventDate = function(eventPart) {
-    var event = eventPart;
+    var event = eventPart.event;
     var event_date = '';
     if (!event.hasOwnProperty('eventDate')) {
         /* Has no date */
@@ -262,7 +262,7 @@ LIDOEvents.prototype.getEventDate = function(eventPart) {
  * @return String
  */
 LIDOEvents.prototype.getEventType = function(eventPart) {
-    var event = eventPart;
+    var event = eventPart.event;
     var type = '';
     if (!event.hasOwnProperty('eventType')) {
         /* No type */
@@ -286,7 +286,7 @@ LIDOEvents.prototype.getEventType = function(eventPart) {
  */
 LIDOEvents.prototype.getEventPeriod = function(eventPart) {
     var period = '';
-    var event = eventPart;
+    var event = eventPart.event;
     var periods = [];
     if (!event.hasOwnProperty('periodName')) {
         /* No period name */
