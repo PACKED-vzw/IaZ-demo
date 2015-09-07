@@ -4,24 +4,12 @@ var app = angular.module ('simpleCollectionView',
 
 app.config (['$routeProvider', function ($routeProvider) {
     $routeProvider
-        .when ('/search/collection', {
-        controller: 'mainCtrl',
-        templateUrl: '/view/main.html'
-    }).when ('/search/yale', {
-        controller: 'yaleSearchCtrl',
-        templateUrl: 'view/yalesearch.html'
-    }).when ('/item/:id', {
-            controller: 'viewCtrl',
-            templateUrl: '/view/item.html'
-    }).when ('/collection/:q', {
-        controller: 'collectionCtrl',
-        templateUrl: '/view/collection.html'
-    }).when ('/yale/:id', {
-        controller: 'YaleCtrl',
-        templateUrl: '/view/yale.html'
-    }).when ('/results/:term', {
-        controller: 'resultCtrl',
-        templateUrl: '/view/collection.html'
+        .when ('/search/lunden', {
+        controller: 'lundenCtrl',
+        templateUrl: '/view/list.html'
+    }).when ('/search/qi', {
+        controller: 'qiSearchCtrl',
+        templateUrl: 'view/list.html'
     }).when('/qi/item/:id', {
             templateUrl: 'view/qi.html',
             controller: 'QiCtrl'
@@ -44,74 +32,43 @@ app.controller ('indexCtrl', ['$scope',
     }
 ]);
 
-app.controller ('yaleSearchCtrl', ['$scope',
-    function ($scope) {
-        $scope.chunk = function (array, cSize) {
-            var a = [];
-            for (var i = 0; i < array.length; i += cSize) {
-                a.push (array.slice (i, i + cSize));
-            }
-            return a;
-        };
-        var list = [];
-        for (var i = 100; i <= 900; i++) {
-            list.push ({
-                id: 'oai:tms.ycba.yale.edu:' + i
-            });
+app.controller ('lundenCtrl', ['$scope', 'LundenList', function($scope, LundenList) {
+    var sd = new SearchDisplay();
+    var list = new LundenList();
+    $scope.list = list.resource.get();
+    $scope.list.$promise.then(function(data) {
+        /* data is the object of a acquisition. Acquisitions are linked to objects via object_acquisition in
+        relationship. As we only have one acquisition record in this call, we use the first item in the
+        records attribute. */
+        var object_list = new QiList(data.records[0].relationship.object_acquisition);
+        var result_list = object_list.items;
+        $scope.pages = sd.chunk(result_list, 100);
+        var first_page = $scope.pages.shift();
+        $scope.chunked = sd.chunk(first_page, 4);
+    });
+    /**
+     * This function implements "smooth scrolling". The result from the API is divided in pages of 100 items each.
+     * When loading the page, only one page is loaded. When the user reaches the end of the page, the following
+     * page is loaded.
+     */
+    $scope.loadMore = function() {
+        if (!$scope.chunked) {
+            return;
         }
-        $scope.chunked = $scope.chunk (list, 4);
-    }
-]);
+        if ($scope.pages.length == 0) {
+            return;
+        }
+        var page = $scope.pages.shift();
+        page = sd.chunk(page, 4);
+        for (var i = 0; i < page.length; i++) {
+            $scope.chunked.push(page[i]);
+        }
+    };
+}]);
 
-app.controller ('viewCtrl', ['$scope', 'ItemDisplay', 'Item', '$route',
-    function ($scope, ItemDisplay, Item, $route) {
-        var it = new Item ($route.current.params.id);
-        $scope.it = it.resource.query ();
-        $scope.it.$promise.then (function (data) {
-            var item = data[0].fields;
-            var itemDisplay = new ItemDisplay (item);
-            itemDisplay.setIMG ();
-            itemDisplay.setMetadata ();
-            itemDisplay.exportData ();
-            itemDisplay.getCollections ();
-            $scope.item = itemDisplay.exportItem;
-        });
-    }
-]);
+app.controller ('qiSearchCtrl', ['$scope', function($scope) {
 
-app.controller ('collectionCtrl', ['$scope', 'CollectionDisplay', 'Collection', '$route',
-    function ($scope, CollectionDisplay, Collection, $route) {
-        $scope.chunk = function (array, cSize) {
-            var a = [];
-            for (var i = 0; i < array.length; i += cSize) {
-                a.push (array.slice (i, i + cSize));
-            }
-            return a;
-        };
-        $scope.collection = Collection.get ({id: $route.current.params.q});
-        $scope.collection.$promise.then (function (data) {
-            var collectionDisplay = new CollectionDisplay (data);
-            collectionDisplay.getRecords ();
-            collectionDisplay.exportData ();
-            $scope.pages = collectionDisplay.exportCollection.paginated;
-            var start_list = $scope.pages.shift(); /* First page */
-            $scope.chunked = $scope.chunk (start_list, 4);
-        });
-        $scope.loadMore = function () {
-            if (!$scope.chunked) {
-                return;
-            }
-            if ($scope.pages.length == 0) {
-                return;
-            }
-            var list = $scope.pages.shift ();
-            list = $scope.chunk (list, 4);
-            for (var i = 0; i < list.length; i++) {
-                $scope.chunked.push (list[i]);
-            }
-        };
-    }
-]);
+}]);
 
 app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
     function ($scope, QiDisplay, QiObject, $route) {
@@ -130,71 +87,5 @@ app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
             $scope.events = qiDisplay.exportItem.events;
             $scope.chunked = $scope.chunk($scope.events, 3);
         });
-    }
-]);
-
-app.controller ('YaleCtrl', ['$scope', 'LIDODisplay', 'YaleObject', '$route',
-    function ($scope, LIDODisplay, YaleObject, $route) {
-        var y = new YaleObject ($route.current.params.id);
-        $scope.i = y.resource.get();
-        $scope.i.$promise.then (function (data) {
-            var lidoDisplay = new LIDODisplay (data);
-            lidoDisplay.formatDisplay ();
-            lidoDisplay.exportData ();
-            console.log (lidoDisplay.exportItem);
-            $scope.item = lidoDisplay.exportItem;
-            $scope.events = $scope.item.events;
-        });
-    }]);
-
-app.controller ('resultCtrl', ['$scope', 'CollectionDisplay', 'VAMQuery', '$route',
-    function ($scope, CollectionDisplay, VAMQuery, $route) {
-        $scope.chunk = function (array, cSize) {
-            var a = [];
-            for (var i = 0; i < array.length; i += cSize) {
-                a.push (array.slice (i, i + cSize));
-            }
-            return a;
-        };
-        $scope.collection = VAMQuery.get ({q: $route.current.params.term});
-        $scope.collection.$promise.then (function (data) {
-            var collectionDisplay = new CollectionDisplay (data);
-            collectionDisplay.getRecords ();
-            collectionDisplay.exportData ();
-            $scope.pages = collectionDisplay.exportCollection.paginated;
-            var start_list = $scope.pages.shift(); /* First page */
-            $scope.chunked = $scope.chunk (start_list, 4);
-        });
-        $scope.loadMore = function () {
-            if (!$scope.chunked) {
-                return;
-            }
-            if ($scope.pages.length == 0) {
-                return;
-            }
-            var list = $scope.pages.shift ();
-            list = $scope.chunk (list, 4);
-            for (var i = 0; i < list.length; i++) {
-                $scope.chunked.push (list[i]);
-            }
-        };
-    }
-]);
-
-app.controller ('mainCtrl', ['$scope', '$location',
-    function ($scope, $location) {
-        console.log ('main');
-        $scope.search = {
-            term: ''
-        };
-        $scope.go = function (so) {
-            $scope.search = angular.copy (so);
-            window.location.href = '#/results/' + so.term;
-        };
-        $scope.reset = function () {
-            $scope.so = angular.copy ($scope.search);
-        };
-        $scope.reset ();
-        /* Creates search form & if type is va, uses collection view to show the results */
     }
 ]);

@@ -15,6 +15,9 @@ QiMetadata.prototype.getTitle = function () {
         arrayTitles = [arrayTitles];
     }
     var returnTitles = [];
+    if (typeof(arrayTitles) == 'undefined') {
+        return returnTitles;
+    }
     if (arrayTitles.length == 1) {
         /* We have no choice */
         returnTitles.push(String(arrayTitles[0].details.name));
@@ -37,6 +40,9 @@ QiMetadata.prototype.getTitle = function () {
 QiMetadata.prototype.getDescription = function () {
     var returnDescriptions = [];
     var arrayDescriptions = this.record.relationship.object_description;
+    if (typeof(arrayDescriptions) == 'undefined') {
+        return returnDescriptions;
+    }
     if (!arrayDescriptions instanceof Array) {
         arrayDescriptions = [arrayDescriptions];
     }

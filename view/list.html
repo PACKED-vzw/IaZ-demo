@@ -1,0 +1,13 @@
+<div ng-hide="chunked" class="loader">
+    <img src="view/css/ajax-loader.gif" class="loading" alt="loading" />
+</div>
+<!-- Infinite scroll div -->
+<div class="infinite-scroll" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+    <section class="collection container" ng-repeat="colpart in chunked track by $index">
+        <article class="collection" ng-repeat="record in colpart track by $index">
+            <header class="collection">
+                <h3 class="collection"><a ng-href="#/qi/item/{{record[0]}}">{{record[1]}}</a></h3>
+            </header>
+        </article>
+    </section>
+</div>

@@ -104,6 +104,9 @@ QiEvents.prototype.exhibitionEvents = function () {
 QiEvents.prototype.productionEvents = function () {
     var productionEvents = [];
     var arrayProduction = this.record.relationship.object_production;
+    if (typeof(arrayProduction) == 'undefined') {
+        return productionEvents;
+    }
     if (!arrayProduction instanceof Array) {
         arrayProduction = [arrayProduction];
     }
@@ -178,6 +181,9 @@ QiEvents.prototype.getValueDirectly = function (eventObjectAttribute) {
  * @return Array
  */
 QiEvents.prototype.getActorsByType = function (actorList, type) {
+    if (typeof(actorList) == 'undefined') {
+        return [];
+    }
     if (!actorList instanceof Array) {
         actorList = [actorList];
     }
@@ -224,6 +230,10 @@ QiEvents.prototype.simpleEvent = function (eventObject, type) {
  */
 QiEvents.prototype.simpleEvents = function (eventArray, type) {
     var events = [];
+    /* Not all events are defined (they are not mandatory */
+    if (typeof(eventArray) == 'undefined') {
+        return events;
+    }
     if (!eventArray instanceof Array) {
         eventArray = [eventArray];
     }

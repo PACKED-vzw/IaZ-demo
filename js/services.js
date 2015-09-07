@@ -47,62 +47,15 @@ services.factory ('QiObject', ['$resource',
     }
 ]);
 
-services.factory ('YaleObject', ['$resource',
-    function ($resource) {
-        var YaleObject = function (id) {
-            this.id = id;
-            this.url = 'lido_api/api.php?format=json&remote_format=xml&r=' + encodeURIComponent ('http://collections.britishart.yale.edu/oaicatmuseum/OAIHandler?verb=GetRecord&identifier=' + id + '&metadataPrefix=lido');
-            this.resource = $resource (this.url);
+/**
+ * Return the acquisition object corresponding to the Lunden collection.
+ */
+services.factory ('LundenList', ['$resource',
+    function($resource) {
+        var LundenList = function() {
+            this.url = 'lazy_api/api.php?url=' + encodeURIComponent('https://zilver.qi-cms.com/api/get/acquisition/id/346');
+            this.resource = $resource(this.url);
         };
-        return YaleObject;
-    }]
-);
-
-services.factory ('VAMQuery', ['$resource',
-    function ($resource) {
-        var url = 'lazy_api/api.php?url=' + encodeURI ('http://www.vam.ac.uk/api/json/museumobject/search?q=:q&images=1');
-        return $resource (url, {q: '@q'});
-    }
-]);
-
-services.factory ('YaleObjectLoader', ['YaleObject', '$route', '$q',
-    function (YaleObject, $route, $q) {
-        return function () {
-            var delay = $q.defer ();
-            YaleObject.get ({i: $route.current.params.id}, function (YaleObject) {
-                delay.resolve (YaleObject);
-            }, function () {
-                delay.reject ('Unable to fetch item '+ $route.current.params.id);
-            }); /* lido_api returns object for single results; array for multiple */
-            return delay.promise;
-        }
-    }
-]);
-
-services.factory ('ItemLoader', ['Item', '$route', '$q',
-    function (Item, $route, $q) {
-        return function () {
-            var delay = $q.defer ();
-            Item.query ({id: $route.current.params.id}, function (item) {
-                delay.resolve (item);
-            }, function () {
-                delay.reject ('Unable to fetch item ' + $route.current.params.id);
-            });
-            return delay.promise;
-        };
-    }
-]);
-
-services.factory ('CollectionLoader', ['Collection', '$route', '$q',
-    function (Collection, $route, $q) {
-        return function () {
-            var delay = $q.defer ();
-            Collection.get ({id: $route.current.params.q}, function (collection) {
-                delay.resolve (collection);
-            }, function () {
-                delay.reject ('Unable to fetch collection ' + $route.current.params.q);
-            });
-            return delay.promise;
-        };
+        return LundenList;
     }
 ]);
