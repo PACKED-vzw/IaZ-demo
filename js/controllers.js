@@ -7,15 +7,13 @@ app.config (['$routeProvider', function ($routeProvider) {
         .when ('/search/lunden', {
         controller: 'lundenCtrl',
         templateUrl: '/view/list.html'
-    }).when ('/search/qi', {
-        controller: 'qiSearchCtrl',
-        templateUrl: 'view/list.html'
     }).when('/qi/item/:id', {
             templateUrl: 'view/qi.html',
             controller: 'QiCtrl'
         }
-    ).when('qi/collections/:collection', {
-
+    ).when('/intro', {
+            templateUrl: 'view/intro.html',
+            controller: 'introCtrl'
         }
     ).when ('/', {
         templateUrl: 'view/index.html',
@@ -28,11 +26,17 @@ app.config (['$routeProvider', function ($routeProvider) {
 
 app.controller ('indexCtrl', ['$scope',
     function ($scope) {
+        $scope.home = true;
+    }
+]);
+
+app.controller ('introCtrl', ['$scope',
+    function ($scope) {
 
     }
 ]);
 
-app.controller ('lundenCtrl', ['$scope', 'LundenList', function($scope, LundenList) {
+app.controller ('lundenCtrl', ['$scope', 'LundenList', 'QiObject', function($scope, LundenList, QiObject) {
     var sd = new SearchDisplay();
     var list = new LundenList();
     $scope.list = list.resource.get();
@@ -64,10 +68,21 @@ app.controller ('lundenCtrl', ['$scope', 'LundenList', function($scope, LundenLi
             $scope.chunked.push(page[i]);
         }
     };
-}]);
-
-app.controller ('qiSearchCtrl', ['$scope', function($scope) {
-
+    /**
+     * This function returns the link to the image corresponding to the search result record.
+     * It does this by executing an API call for the metadata of the object, and then
+     * passing it through QiImage to get the image. It sets $scope.img_link
+     * (disabled 'cause it's slow)
+     * @param id
+     */
+    $scope.qi_image = function(id) {
+        var qi = new QiObject(id);
+        $scope.qi = qi.resource.get();
+        $scope.qi.$promise.then(function(data) {
+            var QiImage = new QiImage(data);
+            $scope.img_link = QiImage.img;
+        });
+    };
 }]);
 
 app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
@@ -84,6 +99,7 @@ app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
         $scope.qi.$promise.then (function (data) {
             var qiDisplay = new QiDisplay (data.records[0]);
             $scope.item = qiDisplay.exportItem;
+            console.log($scope.item);
             $scope.events = qiDisplay.exportItem.events;
             $scope.chunked = $scope.chunk($scope.events, 3);
         });

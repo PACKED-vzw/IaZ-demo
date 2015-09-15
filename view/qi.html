@@ -1,13 +1,16 @@
-<article class="item">
+<div ng-hide="item" class="loader">
+    <img src="view/css/ajax-loader.gif" class="loading" alt="loading" />
+</div>
+<article class="item" ng-show="item">
     <header class="item">
         <h2 class="item">{{item.title}}</h2>
     </header>
     <div class="item_image">
-        <a ng-href="{{item.img.src}}" class="image"><img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" /></a>
+        <a ng-href="{{item.img.src}}" class="image"><img ng-src="{{item.img.src}}" alt="{{item.img.alt}}" class="item_image" /></a>
     </div>
     <div class="item_table">
         <table class="metadata">
-            <tr>
+            <tr ng-show="item.collections">
                 <td class="left">
                     <label for="collections">Collecties</label>
                 </td>
@@ -17,7 +20,7 @@
                     </ul>
                 </td>
             </tr>
-            <tr ng-repeat="metadata in item.metadata">
+            <tr ng-repeat="metadata in item.metadata" ng-show="item.metadata">
                 <td class="left">
                     <label for="{{metadata.field}}">{{metadata.disp}}</label>
                 </td>

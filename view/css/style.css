@@ -7,6 +7,26 @@ body {
 }
 
 
+/* Text */
+p, ul, ol {
+    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    font-size: 0.95em;
+    text-align: justify;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1.0em;
+    font-variant: small-caps;
+}
+
+h4 {
+    font-size: 1.0em;
+    font-style: italic;
+}
 
 /*
 vh = view height (HTML5)
@@ -82,6 +102,10 @@ img.collection {
     max-height: 30vh;
 }
 
+img.collection_small {
+    max-height: 15vh;
+}
+
 header.collection {
     width: auto;
     height: auto;
@@ -110,8 +134,13 @@ h2.item {
     font-weight: normal;
 }
 
+img.item_image {
+    max-height: 50vh;
+}
+
 div.item_image {
-    width: 60%;
+    max-width: 60%;
+    max-height: 50vh;
     margin-left: auto;
     margin-right: auto;
 }
@@ -164,8 +193,9 @@ a:hover {
 div.loader {
     width: 15vw;
     height: 15vh;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    top: 25vh;
+    left: 42.5vw;
 }
 
 div.normal {

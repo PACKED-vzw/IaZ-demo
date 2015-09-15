@@ -5,9 +5,15 @@
 <div class="infinite-scroll" infinite-scroll="loadMore()" infinite-scroll-distance="3">
     <section class="collection container" ng-repeat="colpart in chunked track by $index">
         <article class="collection" ng-repeat="record in colpart track by $index">
+            <div class="img">
+                <a href="#/qi/item/{{record[0]}}" class="collection"><img class="collection collection_small" ng-src="view/css/silver.jpg" alt="{{record[1]}}" /></a>
+            </div>
             <header class="collection">
-                <h3 class="collection"><a ng-href="#/qi/item/{{record[0]}}">{{record[1]}}</a></h3>
+                <h3 class="collection">{{record[1]}}</h3>
             </header>
+            <!--<header class="collection">
+                <h3 class="collection"><a ng-href="#/qi/item/{{record[0]}}">{{record[1]}}</a></h3>
+            </header>-->
         </article>
     </section>
 </div>

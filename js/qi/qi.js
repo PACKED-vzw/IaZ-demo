@@ -36,9 +36,9 @@ model.factory ('QiDisplay', function() {
         this.item = qiResponseObject;
         this.QiEvents = new QiEvents(this.item);
         this.QiMetadata = new QiMetadata(this.item);
-        this.image_server = 'https://zilver.qi-cms.com/media/_source/'; /* URL of the server containing the images; server + path = src of the image */
+        this.QiImage = new QiImage(this.item);
         this.metadata = this.getMetadata();
-        this.img = this.getImage();
+        this.img = this.QiImage.img;
         this.title = this.getName();
         this.collections = this.getCollections();
         this.events = this.getEvents();
@@ -70,61 +70,26 @@ model.factory ('QiDisplay', function() {
             });
         }
         /* Object type */
-        metadata.push({
-            field: 'Objecttype',
-            disp: 'Objecttype',
-            value: this.getValueDirectly(this.item.record.object_type_value)
-        });
+        /*
+        object_x_id holds a reference (foreign key) to the x (i.c. object type). If that's null, no x has
+        been assigned to this object, so skip it.
+         */
+        if (this.getValueDirectly(this.item.record.object_type_id) !== null) {
+            metadata.push({
+                field: 'Objecttype',
+                disp: 'Objecttype',
+                value: this.getValueDirectly(this.item.record.object_type_value)
+            });
+        }
         /* Object style */
-        metadata.push({
-            field: 'Stijl',
-            disp: 'Stijl',
-            value: this.getValueDirectly(this.item.record.object_style_value)
-        });
+        if (this.getValueDirectly(this.item.record.object_style_id) !== null) {
+            metadata.push({
+                field: 'Stijl',
+                disp: 'Stijl',
+                value: this.getValueDirectly(this.item.record.object_style_value)
+            });
+        }
         return metadata;
-    };
-
-    /**
-    Function to get an image object of the following form from a QI API Response (this.item):
-        {
-        src
-        alt
-        id
-        }
-     @return object (attributes are empty ('' not undefined) when no image could be found)
-     */
-    QiDisplay.prototype.getImage = function () {
-        var images = this.item.media.image;
-        var image_list = [];
-        //for (var i = 0; i < images.length; i++) {
-        for (var i = 0; i < 1; i++) { /* We only need one image */
-            var image = images[i];
-            var image_object = {
-                src: '',
-                alt: '',
-                id: ''
-            };
-            image_object.src = this.image_server + image.path + '/' + image.filename;
-            if (typeof (image.alt_text) != 'undefined' && image.alt_text != '') {
-                image_object.alt = image.alt_text;
-            } else if (typeof (image.caption) != 'undefined' && image.caption != '') {
-                image_object.alt = image.caption;
-            } else {
-                /* Fallback */
-                image_object.alt = image.filename;
-            }
-            image_object.id = image.filename;
-            image_list.push (image_object);
-        }
-        if (image_list.length == 0) {
-            /* No image, return empty object */
-            return {
-                src: '',
-                alt: '',
-                id: ''
-            };
-        }
-        return image_list[0];
     };
 
     /**
@@ -146,10 +111,12 @@ model.factory ('QiDisplay', function() {
     QiDisplay.prototype.getCollections = function () {
         /* QI items only have 1 collection */
         var returnCollections = [];
-        returnCollections.push({
-            name: this.getValueDirectly(this.item.record.collection_type_value),
-            link: this.getValueDirectly(this.item.record.collection_type_value)
-        });
+        if (this.getValueDirectly(this.item.record.collection_type_id) !== null) {
+            returnCollections.push({
+                name: this.getValueDirectly(this.item.record.collection_type_value),
+                link: this.getValueDirectly(this.item.record.collection_type_value)
+            });
+        }
         return returnCollections;
     };
 
@@ -170,7 +137,6 @@ model.factory ('QiDisplay', function() {
         events = events.concat(this.QiEvents.conservationEvents());
         /* Exhibition */
         events = events.concat(this.QiEvents.exhibitionEvents());
-        console.log(events);
         return events;
     };
 
@@ -179,13 +145,23 @@ model.factory ('QiDisplay', function() {
      @return object
      */
     QiDisplay.prototype.getExportItem = function () {
-        return {
-            title: this.title,
-            img: this.img,
-            collections: this.collections,
-            metadata: this.metadata,
-            events: this.events
-        };
+        var exportItem = {};
+        if (this.title != '') {
+            exportItem.title = this.title;
+        }
+        if (this.img != '') {
+            exportItem.img = this.img;
+        }
+        if (this.collections.length > 0) {
+            exportItem.collections = this.collections;
+        }
+        if (this.metadata.length > 0) {
+            exportItem.metadata = this.metadata;
+        }
+        if (this.events.length > 0) {
+            exportItem.events = this.events;
+        }
+        return exportItem;
     };
 
     /**
@@ -196,7 +172,7 @@ model.factory ('QiDisplay', function() {
     QiDisplay.prototype.getValueDirectly = function (objectAttribute) {
         if (typeof(objectAttribute) != 'undefined') {
             if (objectAttribute instanceof String) {
-                if (objectAttribute != '') {
+                if (objectAttribute != '' && objectAttribute !== null) {
                     return objectAttribute;
                 } else {
                     return null;
