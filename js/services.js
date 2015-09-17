@@ -47,6 +47,17 @@ services.factory ('QiObject', ['$resource',
     }
 ]);
 
+services.factory ('YaleObject', ['$resource',
+        function ($resource) {
+            var YaleObject = function (id) {
+                this.id = id;
+                this.url = 'lido_api/api.php?format=json&remote_format=xml&r=' + encodeURIComponent ('http://collections.britishart.yale.edu/oaicatmuseum/OAIHandler?verb=GetRecord&identifier=' + id + '&metadataPrefix=lido');
+                this.resource = $resource (this.url);
+            };
+            return YaleObject;
+        }]
+);
+
 /**
  * Return the acquisition object corresponding to the Lunden collection.
  */

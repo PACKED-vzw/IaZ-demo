@@ -1,5 +1,5 @@
 var app = angular.module ('simpleCollectionView',
-    ['simpleCollectionView.services', 'simpleCollectionView.model', 'simpleCollectionView.lido', 'simpleCollectionView.qi',
+    ['simpleCollectionView.services', 'simpleCollectionView.lido', 'simpleCollectionView.qi',
         'ngRoute', 'infinite-scroll']);
 
 app.config (['$routeProvider', function ($routeProvider) {
@@ -14,6 +14,10 @@ app.config (['$routeProvider', function ($routeProvider) {
     ).when('/intro', {
             templateUrl: 'view/intro.html',
             controller: 'introCtrl'
+        }
+    ).when('/yale/:id', {
+            templateUrl: 'view/yale.html',
+            controller: 'YaleCtrl'
         }
     ).when ('/', {
         templateUrl: 'view/index.html',
@@ -102,6 +106,20 @@ app.controller ('QiCtrl', ['$scope', 'QiDisplay', 'QiObject', '$route',
             console.log($scope.item);
             $scope.events = qiDisplay.exportItem.events;
             $scope.chunked = $scope.chunk($scope.events, 3);
+        });
+    }
+]);
+
+app.controller ('YaleCtrl', ['$scope', 'LIDODisplay', 'YaleObject', '$route',
+    function ($scope, LIDODisplay, YaleObject, $route) {
+        var y = new YaleObject ($route.current.params.id);
+        $scope.i = y.resource.get();
+        $scope.i.$promise.then (function (data) {
+            var lidoDisplay = new LIDODisplay (data);
+            lidoDisplay.formatDisplay();
+            lidoDisplay.exportData();
+            $scope.item = lidoDisplay.exportItem;
+            $scope.events = $scope.item.events;
         });
     }
 ]);
