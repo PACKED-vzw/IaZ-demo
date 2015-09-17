@@ -7,6 +7,7 @@ var lido = angular.module ('simpleCollectionView.lido', ['simpleCollectionView.s
 lido.factory ('LIDODisplay', function () {
     var LIDODisplay = function (lido) {
         this.lido = lido;
+        this.helper = new SearchDisplay();
         this.lido_events = new LIDOEvents(this.lido);
         this.lido_metadata = new LIDOMetadata(this.lido);
         this.exportItem = {};
@@ -64,20 +65,11 @@ lido.factory ('LIDODisplay', function () {
             this.img.src = 'view/css/Ehem_Baudenkmal.svg.png';
         }
     };
-
-    LIDODisplay.prototype.chunk = function (array, cSize) {
-        var a = [];
-        for (var i = 0; i < array.length; i += cSize) {
-            a.push (array.slice (i, i + cSize));
-        }
-        return a;
-    };
-
     /*
      Divide this.records in chunks (pages) of 60 items for continous display
      */
     LIDODisplay.prototype.paginate = function () {
-        var paginated = this.chunk (this.records, 60);
+        var paginated = this.helper.chunk (this.records, 60);
         this.paginated = paginated;
         return paginated;
     };
