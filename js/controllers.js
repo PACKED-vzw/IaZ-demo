@@ -19,6 +19,14 @@ app.config (['$routeProvider', function ($routeProvider) {
             templateUrl: 'view/yale.html',
             controller: 'YaleCtrl'
         }
+    ).when('/cors-qi/item/:id', {
+            templateUrl: 'view/qi.html',
+            controller: 'QiCorsCtrl'
+        }
+    ).when('/backup/:id', {
+            templateUrl: 'view/qi.html',
+            controller: 'QiBackupCtrl'
+        }
     ).when ('/', {
         templateUrl: 'view/index.html',
         controller: 'indexCtrl'
@@ -40,6 +48,47 @@ app.controller ('introCtrl', ['$scope',
     }
 ]);
 
+app.controller ('QiBackupCtrl', ['$scope', 'QiDisplay', 'QiBackupObject', '$route',
+    function ($scope, QiDisplay, QiBackupObject, $route) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
+        var qi = new QiBackupObject ($route.current.params.id);
+        $scope.qi = qi.resource.get();
+        $scope.qi.$promise.then (function (data) {
+            var qiDisplay = new QiDisplay (data.records[0]);
+            $scope.item = qiDisplay.exportItem;
+            console.log($scope.item);
+            $scope.events = qiDisplay.exportItem.events;
+            $scope.chunked = $scope.chunk($scope.events, 3);
+        });
+    }
+]);
+
+app.controller ('QiCorsCtrl', ['$scope', 'QiDisplay', 'QiCorsObject', '$route',
+    function ($scope, QiDisplay, QiCorsObject, $route) {
+        $scope.chunk = function (array, cSize) {
+            var a = [];
+            for (var i = 0; i < array.length; i += cSize) {
+                a.push (array.slice (i, i + cSize));
+            }
+            return a;
+        };
+        var qi = new QiCorsObject ($route.current.params.id);
+        $scope.qi = qi.resource.get();
+        $scope.qi.$promise.then (function (data) {
+            var qiDisplay = new QiDisplay (data.records[0]);
+            $scope.item = qiDisplay.exportItem;
+            console.log($scope.item);
+            $scope.events = qiDisplay.exportItem.events;
+            $scope.chunked = $scope.chunk($scope.events, 3);
+        });
+    }
+]);
 app.controller ('lundenCtrl', ['$scope', 'LundenList', 'QiObject', function($scope, LundenList, QiObject) {
     var sd = new SearchDisplay();
     var list = new LundenList();

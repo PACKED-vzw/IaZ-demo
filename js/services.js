@@ -40,10 +40,30 @@ services.factory ('QiObject', ['$resource',
         var QiObject = function (id) {
             this.id = id;
             this.url = 'lazy_api/api.php?url=' + encodeURIComponent('https://zilver.qi-cms.com/api/get/object/id/' + this.id);
-            //this.url = 'file.php';
             this.resource = $resource(this.url);
         };
         return QiObject;
+    }
+]);
+
+services.factory ('QiCorsObject', ['$resource',
+    function ($resource) {
+        var QiCorsObject = function (id) {
+            this.id = id;
+            this.url = 'https://zilver.qi-cms.com/api/get/object/id/' + this.id;
+            this.resource = $resource(this.url);
+        };
+        return QiCorsObject;
+    }
+]);
+
+services.factory ('QiBackupObject', ['$resource',
+    function ($resource) {
+        return function (id) {
+            this.id = id;
+            this.url = 'file.php';
+            this.resource = $resource(this.url);
+        };
     }
 ]);
 
